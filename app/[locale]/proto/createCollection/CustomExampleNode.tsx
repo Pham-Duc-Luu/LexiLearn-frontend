@@ -4,8 +4,8 @@ import {
   NodeProps,
   Position,
   Node,
+  NodeResizeControl,
   useNodeId,
-  useReactFlow,
   NodeResizer,
 } from "@xyflow/react";
 import {
@@ -27,29 +27,31 @@ import {
 } from "@nextui-org/react";
 import { IoAdd } from "react-icons/io5";
 import { useMeasure } from "@/hooks/use-measure";
-import { MdDeleteOutline } from "react-icons/md";
 import { CustomtNodeType, deleteNode } from "@/store/CardNode.proto.slice";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch } from "@/store/ProtoStore";
+import { useAppSelector } from "@/store/ProtoStore";
+import { MdDeleteOutline } from "react-icons/md";
 
-const CustomMeaninNode = ({
+const CustomExampleNode = ({
+  data,
   isConnectable,
+  positionAbsoluteX,
   id,
+  positionAbsoluteY,
 }: NodeProps<CustomtNodeType>) => {
   const dispatch = useAppDispatch();
 
   return (
-    <>
+    <div className="">
       <NodeResizer></NodeResizer>
-
       <Handle
         type="target"
         position={Position.Left}
-        onConnect={(params) => console.log("handle onConnect", params)}
         isConnectable={isConnectable}
       />
       <Card className="py-4" radius="sm">
-        <CardHeader className="drag-handle__label drag-handle__custom pb-0  pt-2 px-4 flex justify-between items-center ">
-          <span className=" text-2xl font-bold">Meaning</span>
+        <CardHeader className=" drag-handle__label drag-handle__custom pb-0  pt-2 px-4 flex justify-between items-center ">
+          <span className=" text-2xl font-bold">Example</span>
           <Button
             isIconOnly
             onClick={() => {
@@ -61,22 +63,28 @@ const CustomMeaninNode = ({
         </CardHeader>
         <Divider className="my-2"></Divider>
         <CardBody className="overflow-visible py-2  cursor-default">
-          <div className=" flex gap-4">
+          <div className=" flex gap-4 ">
             <Textarea
               disableAnimation
+              className=" w-[200px]"
+              width={200}
               disableAutosize
               classNames={{
                 base: "max-w-xs",
                 input: "resize-y min-h-[40px]",
               }}
+              minRows={4}
+              maxRows={6}
               variant="bordered"
-              onChange={(e) => {}}
+              onChange={(e) => {
+                // data.onTextChange && data.onTextChange(e.target.value);
+              }}
             ></Textarea>
           </div>
         </CardBody>
       </Card>
-    </>
+    </div>
   );
 };
 
-export default CustomMeaninNode;
+export default memo(CustomExampleNode);

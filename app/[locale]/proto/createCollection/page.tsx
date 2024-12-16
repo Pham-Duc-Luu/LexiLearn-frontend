@@ -6,7 +6,7 @@ import { ReactFlowProvider } from "@xyflow/react";
 
 const page = () => {
   return (
-    <div className=" ">
+    <div className=" py-8 flex flex-col gap-8">
       <div className="grid grid-cols-12">
         <Header className=" col-start-2 col-span-3"></Header>
       </div>

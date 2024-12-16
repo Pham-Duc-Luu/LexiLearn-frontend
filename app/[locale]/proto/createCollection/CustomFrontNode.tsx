@@ -5,6 +5,9 @@ import {
   Position,
   Node,
   NodeResizeControl,
+  useReactFlow,
+  useNodeId,
+  NodeResizer,
 } from "@xyflow/react";
 import {
   Card,
@@ -26,41 +29,33 @@ import {
 import { IoAdd } from "react-icons/io5";
 import { useMeasure } from "@/hooks/use-measure";
 
-type CustomFrontNodeData = {
-  width?: number;
-  onTextChange?: (e: string) => {};
-
-  height?: number;
-  onAddMeaningNode?: () => void;
-  onAddExamplesNode?: () => void;
-};
-type CustomFrontNode = Node<CustomFrontNodeData, "size">;
+import { useAppDispatch } from "@/store/ProtoStore";
+import { useAppSelector } from "@/store/ProtoStore";
+import { addNode, CustomtNodeType } from "@/store/CardNode.proto.slice";
 
 const CustomFrontNode = ({
   data,
   isConnectable,
   positionAbsoluteX,
   positionAbsoluteY,
-}: NodeProps<CustomFrontNode>) => {
-  const [ref, nodeSize] = useMeasure();
-  useEffect(() => {
-    if (nodeSize.height) {
-      data.height = nodeSize.height;
-    }
-    if (nodeSize.width) {
-      data.width = nodeSize.width;
-    }
-  }, [nodeSize]);
+}: NodeProps<CustomtNodeType>) => {
+  const dispatch = useAppDispatch();
+  const { allNodes } = useAppSelector((state) => state.CardNode);
+  const nodeId = useNodeId();
+  const reactFlow = useReactFlow();
+
   return (
     <div className="">
+      <NodeResizer></NodeResizer>
       <Handle
         type="source"
         position={Position.Right}
+        id={allNodes[0].id}
         onConnect={(params) => console.log("handle onConnect", params)}
         isConnectable={isConnectable}
       />
-      <Card className="py-4" radius="sm" ref={ref}>
-        <CardHeader className="pb-0  pt-2 px-4 flex justify-between items-center ">
+      <Card className="py-4" radius="sm">
+        <CardHeader className=" drag-handle__label drag-handle__custom pb-0  pt-2 px-4 flex justify-between items-center ">
           <span className=" text-2xl font-bold">Front</span>
           <Button isIconOnly>
             <FaRegPlayCircle size={28} />
@@ -93,7 +88,7 @@ const CustomFrontNode = ({
                 <DropdownItem
                   key="Meaning"
                   onPress={() => {
-                    data.onAddMeaningNode && data.onAddMeaningNode();
+                    dispatch(addNode("meaningNode"));
                   }}
                 >
                   Meaning
@@ -101,7 +96,7 @@ const CustomFrontNode = ({
                 <DropdownItem
                   key="Exapmles"
                   onPress={() => {
-                    data.onAddExamplesNode && data.onAddExamplesNode();
+                    dispatch(addNode("exampleNode"));
                   }}
                 >
                   Exapmles
