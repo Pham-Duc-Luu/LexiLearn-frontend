@@ -13,6 +13,7 @@ export const authApi = createApi({
   baseQuery: axiosBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL || "localhost",
   }), // Use the Axios base query
+
   endpoints: (builder) => ({
     // Define a login endpoint
     signIn: builder.mutation<

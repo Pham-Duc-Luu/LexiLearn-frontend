@@ -4,7 +4,9 @@ import { File, Trash2, Upload } from "lucide-react";
 import type React from "react";
 import { type DragEvent, useRef, useState } from "react";
 import { RiImageAddLine } from "react-icons/ri";
-
+import { Image } from "@nextui-org/image";
+import { Button, Card, CardFooter } from "@nextui-org/react";
+import { MdDeleteOutline } from "react-icons/md";
 interface FileWithPreview extends File {
   preview: string;
 }
@@ -49,7 +51,7 @@ export function ImageFileZone({ isDisabled = false }: ImageFileZoneProps) {
         preview: URL.createObjectURL(file),
       })
     );
-    setFiles((prevFiles) => [...prevFiles, ...newFiles]);
+    !files[0] && setFiles([newFiles[0]]);
   };
 
   const handleButtonClick = () => {
@@ -67,14 +69,17 @@ export function ImageFileZone({ isDisabled = false }: ImageFileZoneProps) {
     URL.revokeObjectURL(fileToDelete.preview);
   };
 
+  console.log(files);
+
   return (
     <div className=" place-items-baseline h-[60px] w-[80px]  flex place-content-baseline   ">
       <motion.div
-        className={` size-full flex justify-center items-centercursor-pointer rounded-xl border-2 border-dashed  text-center transition-colors ${
-          isDragActive
-            ? "border-blue-500 bg-blue-500/5"
-            : "border-neutral-300 hover:border-neutral-400 dark:border-neutral-700 dark:hover:border-neutral-500"
-        }`}
+        className=" size-full"
+        // className={` size-full flex justify-center items-centercursor-pointer rounded-sm border-2 border-dashed  text-center transition-colors ${
+        //   isDragActive
+        //     ? "border-blue-500 bg-blue-500/5"
+        //     : "border-neutral-300 hover:border-neutral-400 dark:border-neutral-700 dark:hover:border-neutral-500"
+        // }`}
         onClick={!isDisabled ? handleButtonClick : undefined}
         onDragEnter={!isDisabled ? handleDragEnter : undefined}
         onDragLeave={!isDisabled ? handleDragLeave : undefined}
@@ -94,29 +99,62 @@ export function ImageFileZone({ isDisabled = false }: ImageFileZoneProps) {
           />
         )}
 
-        <AnimatePresence>
-          {isDragActive ? (
-            <motion.div
-              animate={{ opacity: 1, y: 0 }}
-              className=" pointer-events-none select-none w-full flex items-center"
-              exit={{ opacity: 0, y: -10 }}
-              initial={{ opacity: 0, y: 10 }}
-              transition={{ duration: 0.2 }}
+        {files && files.length > 0 && files[0] ? (
+          <Card
+            className="border-none h-full relative shadow-none content-end"
+            style={{
+              backgroundImage: `url(${files[0].preview})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+            radius="sm"
+          >
+            <Button
+              isIconOnly
+              onClick={() => {
+                setFiles([]);
+              }}
+              radius="full"
+              color="danger"
+              size="sm"
+              className=" top-2 right-2 absolute min-w-0 min-h-0 h-6 w-6"
             >
-              <RiImageAddLine className="  pointer-events-none mx-auto size-8 select-none text-blue-500" />
-            </motion.div>
-          ) : (
-            <motion.div
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
-              className=" pointer-events-none select-none w-full flex items-center"
-              initial={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-            >
-              <RiImageAddLine className="mx-auto size-8 text-neutral-400 dark:text-neutral-500" />
-            </motion.div>
-          )}
-        </AnimatePresence>
+              <MdDeleteOutline className=" " />
+            </Button>
+          </Card>
+        ) : (
+          <motion.div
+            className={` size-full flex justify-center items-centercursor-pointer rounded-sm border-2 border-dashed  text-center transition-colors ${
+              isDragActive
+                ? "border-blue-500 bg-blue-500/5"
+                : "border-neutral-300 hover:border-neutral-400 dark:border-neutral-700 dark:hover:border-neutral-500"
+            }`}
+          >
+            <AnimatePresence>
+              {isDragActive ? (
+                <motion.div
+                  animate={{ opacity: 1, y: 0 }}
+                  className=" pointer-events-none select-none w-full flex items-center"
+                  exit={{ opacity: 0, y: -10 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <RiImageAddLine className="  pointer-events-none mx-auto size-8 select-none text-blue-500" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className=" pointer-events-none select-none w-full flex items-center"
+                  initial={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <RiImageAddLine className="mx-auto size-8 text-neutral-400 dark:text-neutral-500" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        )}
       </motion.div>
     </div>
   );

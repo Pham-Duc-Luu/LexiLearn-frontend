@@ -14,7 +14,10 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.8",
+    "@dnd-kit/modifiers": "^9.0.0",
+    "@dnd-kit/sortable": "^10.0.0",
     "@hookform/resolvers": "^3.9.1",
+    "@huggingface/transformers": "^3.2.2",
     "@mantine/hooks": "^7.13.4",
     "@nextui-org/react": "^2.4.8",
     "@radix-ui/react-avatar": "^1.1.1",
@@ -80,6 +83,7 @@
   },
   "devDependencies": {
     "@0no-co/graphqlsp": "^1.12.16",
+    "@faker-js/faker": "^9.3.0",
     "@graphql-codegen/cli": "^5.0.3",
     "@graphql-codegen/client-preset": "^4.4.0",
     "@graphql-codegen/introspection": "^4.0.3",

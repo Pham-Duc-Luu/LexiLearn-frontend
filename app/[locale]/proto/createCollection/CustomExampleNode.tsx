@@ -27,9 +27,12 @@ import {
 } from "@nextui-org/react";
 import { IoAdd } from "react-icons/io5";
 import { useMeasure } from "@/hooks/use-measure";
-import { CustomtNodeType, deleteNode } from "@/store/CardNode.proto.slice";
-import { useAppDispatch } from "@/store/ProtoStore";
-import { useAppSelector } from "@/store/ProtoStore";
+import {
+  CustomtNodeType,
+  deleteNode,
+} from "@/store/Proto-slice/CardNode.proto.slice";
+import { useAppDispatch } from "@/store/Proto-slice/ProtoStore";
+import { useAppSelector } from "@/store/Proto-slice/ProtoStore";
 import { MdDeleteOutline } from "react-icons/md";
 
 const CustomExampleNode = ({

@@ -29,9 +29,12 @@ import {
 import { IoAdd } from "react-icons/io5";
 import { useMeasure } from "@/hooks/use-measure";
 
-import { useAppDispatch } from "@/store/ProtoStore";
-import { useAppSelector } from "@/store/ProtoStore";
-import { addNode, CustomtNodeType } from "@/store/CardNode.proto.slice";
+import { useAppDispatch } from "@/store/Proto-slice/ProtoStore";
+import { useAppSelector } from "@/store/Proto-slice/ProtoStore";
+import {
+  addNode,
+  CustomtNodeType,
+} from "@/store/Proto-slice/CardNode.proto.slice";
 
 const CustomFrontNode = ({
   data,

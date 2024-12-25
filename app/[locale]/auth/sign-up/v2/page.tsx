@@ -71,8 +71,6 @@ const Page = () => {
   const GoogleLogin = useGoogleLogin({
     flow: "auth-code",
     onSuccess: (tokenResponse) => {
-      console.log(tokenResponse);
-
       useGoogleOAuth2MutationTrigger(tokenResponse.code);
     },
     onError: (error) => console.log(error),

@@ -22,6 +22,10 @@ const axiosBaseQuery =
     headers?: AxiosRequestConfig["headers"];
   }> =>
   async ({ url, method, data, params, headers }, { getState, dispatch }) => {
+    headers = {
+      ...headers,
+      "x-api-key": process.env.NEXT_PUBLIC_API_KEY || "default-api-key",
+    };
     const getToken = () => {
       const { persistedReducer } = getState() as RootState;
       return {
@@ -40,6 +44,7 @@ const axiosBaseQuery =
           access_token: getToken().access_token,
         },
         headers: {
+          ...headers,
           Authorization: getToken().access_token
             ? `Bearer ${getToken().access_token}`
             : "", // Add token here
@@ -54,6 +59,8 @@ const axiosBaseQuery =
         data,
         params,
         headers: {
+          ...headers,
+
           Authorization: getToken().access_token
             ? `Bearer ${getToken().access_token}`
             : "", // Add token here

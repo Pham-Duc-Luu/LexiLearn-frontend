@@ -28,7 +28,10 @@ import {
 import { IoAdd } from "react-icons/io5";
 import { useMeasure } from "@/hooks/use-measure";
 import { MdDeleteOutline } from "react-icons/md";
-import { CustomtNodeType, deleteNode } from "@/store/CardNode.proto.slice";
+import {
+  CustomtNodeType,
+  deleteNode,
+} from "@/store/Proto-slice/CardNode.proto.slice";
 import { useAppDispatch } from "@/store/hooks";
 
 const CustomMeaninNode = ({

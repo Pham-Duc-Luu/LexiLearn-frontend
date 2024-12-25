@@ -26,13 +26,13 @@ export interface CardNodeProto {
 const initialState: CardNodeProto = {
   edges: [],
   allNodes: [
-    {
-      id: "front",
-      position: { x: 0, y: 0 },
-      data: { text: "" },
-      type: "frontNode",
-      dragHandle: ".drag-handle__custom",
-    },
+    // {
+    //   id: "front",
+    //   position: { x: 0, y: 0 },
+    //   data: { text: "" },
+    //   type: "frontNode",
+    //   dragHandle: ".drag-handle__custom",
+    // },
   ],
 };
 
@@ -40,36 +40,6 @@ export const CardNodeProtoSlice = createSlice({
   initialState,
   name: "CardNodeProtoSlice",
   reducers: {
-    // addMeaningNode: (state, payload?: PayloadAction<CustomNode>) => {
-    //   // * post if there is a meaning node
-
-    //   if (state.allNodes[1]) return;
-
-    //   const MeaningNode: CustomtNodeType = {
-    //     id: v4(),
-    //     position: {
-    //       x: state.allNodes[0].data.width
-    //         ? state.allNodes[0].data.width * 3
-    //         : 0,
-    //       y: state.allNodes[0].position.y,
-    //     },
-    //     dragHandle: ".drag-handle__custom",
-    //     data: {
-    //       height: 0,
-    //       width: 0,
-    //       text: payload?.payload?.text || "",
-    //     },
-    //     type: "meaningNode",
-    //   };
-    //   state.allNodes.push(MeaningNode);
-
-    //   state.connetions.push({
-    //     id: v4(),
-    //     animated: true,
-    //     target: MeaningNode.id,
-    //     source: state.allNodes[0].id,
-    //   });
-    // },
     addNode: (state, payload: PayloadAction<CustomtNodeType["type"]>) => {
       const newNode: CustomtNodeType = {
         id: v4(),
@@ -101,6 +71,18 @@ export const CardNodeProtoSlice = createSlice({
 
       state.edges.push(newEdge);
       state.allNodes.push(newNode);
+    },
+    initNode: (state) => {
+      state.allNodes = [
+        {
+          id: "front",
+          position: { x: 0, y: 0 },
+          data: { text: "" },
+          type: "frontNode",
+          dragHandle: ".drag-handle__custom",
+        },
+      ];
+      state.edges = [];
     },
     deleteNode: (state, payload: PayloadAction<String>) => {
       state.allNodes &&
@@ -135,6 +117,7 @@ export const CardNodeProtoSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {
   onNodesChange,
+  initNode,
   addNode,
   onEdgesChange,
   onConnect,

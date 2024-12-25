@@ -30,10 +30,9 @@ import {
   CustomtNodeType,
   onConnect,
   onEdgesChange,
+  CardType,
   onNodesChange,
-  updateNode,
-  updateNodes,
-} from "@/store/Proto-slice/CardNode.proto.slice";
+} from "@/store/Proto-slice/newDesk.slice";
 import CustomFrontNode from "./CustomFrontNode";
 
 import CustomMeaninNode from "./CustomMeaningNode";
@@ -53,14 +52,14 @@ const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
 const EditPlayGroud = ({ className }: EditPlayGroudProps) => {
   const reactFlow = useReactFlow();
   const dispatch = useAppDispatch();
-  const { allNodes, edges } = useAppSelector((state) => state.CardNode);
+  const { allNodes, edges } = useAppSelector((state) => state.NewDesk);
   const AddExamplesNode = () => {};
 
   const nodeTypes = useMemo(
-    () => ({
-      frontNode: CustomFrontNode,
-      meaningNode: CustomMeaninNode,
-      exampleNode: CustomExampleNode,
+    (): Record<(typeof CardType)[number], any> => ({
+      word: CustomFrontNode,
+      mean: CustomMeaninNode,
+      example: CustomExampleNode,
     }),
     []
   );
