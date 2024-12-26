@@ -3,10 +3,10 @@ import { SidebarDemo } from "./SideBarDemo";
 
 export default function layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className=" min-h-screen min-w-full bg-background-deemphasized flex flex-col">
+    <div className=" h-screen min-w-full bg-background-deemphasized flex flex-col">
       <NavBarProtoV1></NavBarProtoV1>
       <SidebarDemo>
-        <div>{children}</div>
+        <>{children}</>
       </SidebarDemo>
     </div>
   );
