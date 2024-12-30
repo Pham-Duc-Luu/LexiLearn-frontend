@@ -3,7 +3,7 @@ import { Avatar, Button, Navbar } from "@nextui-org/react";
 import React from "react";
 import { FaBars } from "react-icons/fa";
 import SparklesText from "./magicui/sparkles-text";
-import { useAppDispatch } from "@/store/Proto-slice/ProtoStore";
+import { useAppDispatch } from "@/store/Proto-slice/ProtoStore.slice";
 import { toggleSideBar } from "@/store/Proto-slice/HomePage.proto.slice";
 import { BiBell } from "react-icons/bi";
 const NavBarProtoV1 = () => {

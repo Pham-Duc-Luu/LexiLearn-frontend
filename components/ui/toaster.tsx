@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Toast,
@@ -7,9 +7,9 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from '@/components/ui/toast';
-import { useToast } from '@/hooks/use-toast';
-import { ToastProviderProps } from '@radix-ui/react-toast';
+} from "@/components/ui/toast";
+import { useToast } from "@/hooks/use-toast";
+import { ToastProviderProps } from "@radix-ui/react-toast";
 
 export function Toaster(props: ToastProviderProps) {
   const { toasts } = useToast();
@@ -18,7 +18,7 @@ export function Toaster(props: ToastProviderProps) {
     <ToastProvider {...props}>
       {toasts.map(function ({ id, title, description, action, ...props }) {
         return (
-          <Toast key={id} {...props}>
+          <Toast onClick={(e) => e.preventDefault()} key={id} {...props}>
             <div className="grid gap-1">
               {title && <ToastTitle>{title}</ToastTitle>}
               {description && (

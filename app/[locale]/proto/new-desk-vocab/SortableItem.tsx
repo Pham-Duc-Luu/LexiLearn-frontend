@@ -10,9 +10,13 @@ import {
   ReoderVocabCardItem,
   setCurrentReoderVocabCardItem,
 } from "@/store/Proto-slice/newDesk.slice";
-import { useAppDispatch, useAppSelector } from "@/store/Proto-slice/ProtoStore";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/store/Proto-slice/ProtoStore.slice";
 import * as _ from "lodash";
 import { initNode } from "@/store/Proto-slice/newDesk.slice";
+import { cn } from "@/lib/utils";
 export function SortableItem({
   index,
   id,
@@ -49,14 +53,16 @@ export function SortableItem({
     <div ref={setNodeRef} style={style} className="col-span-12">
       <Card className=" rounded-sm ">
         <Button
-          className="rounded-sm px-0 w-full grid grid-cols-12 content-center gap-0"
+          className={cn(
+            "rounded-sm px-0 w-full grid grid-cols-12 content-center gap-0",
+            currentReorderVocal?.id === item.id && "bg-color-4/25"
+          )}
           onClick={() => {
             if (currentReoderCardIndex != item.id) {
               dispatch(setCurrentReoderVocabCardItem(item.id));
               dispatch(initNodeFromVocalList(item.id));
             }
           }}
-          color={currentReorderVocal?.id === item.id ? "primary" : "default"}
           variant={currentReorderVocal?.id === item.id ? "flat" : "light"}
         >
           <p className="content-center col-span-1">{index}</p>

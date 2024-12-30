@@ -5,9 +5,9 @@ import DeskCardLayoutV2 from "./DeskCardLayout.v2";
 
 const page = () => {
   return (
-    <div className="flex-1 flex flex-col overflow-scroll">
+    <div className="flex-1 overflow-y-scroll">
       <SearchingArea></SearchingArea>
-      <DeskCardLayout></DeskCardLayout>
+      <DeskCardLayoutV2></DeskCardLayoutV2>
     </div>
   );
 };

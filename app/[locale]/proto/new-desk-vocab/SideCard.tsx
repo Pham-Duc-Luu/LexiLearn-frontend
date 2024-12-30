@@ -8,7 +8,7 @@ import {
   ReoderVocabCardItem,
   setReoderVocabCard,
 } from "@/store/Proto-slice/newDesk.slice";
-import { useAppSelector } from "@/store/Proto-slice/ProtoStore";
+import { useAppSelector } from "@/store/Proto-slice/ProtoStore.slice";
 import { useAppDispatch } from "@/store/hooks";
 import { Button, Divider } from "@nextui-org/react";
 import { MdAdd } from "react-icons/md";
@@ -70,8 +70,7 @@ const SideCard = ({}) => {
         <DndGroup></DndGroup>
         <div>
           <Button
-            className="rounded-sm flex-1 w-full "
-            color="primary"
+            className="rounded-sm flex-1 w-full bg-color-4 text-white"
             startContent={<MdAdd />}
             onPress={() => handleAddVocabulary()}
           >

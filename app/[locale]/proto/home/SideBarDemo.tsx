@@ -8,7 +8,11 @@ import { cn } from "@/lib/utils";
 import {
   MdArrowBack,
   MdDashboard,
+  MdHome,
   MdLibraryBooks,
+  MdOutlineHome,
+  MdOutlineLibraryBooks,
+  MdOutlineSettings,
   MdOutlineSpaceDashboard,
   MdOutlineSupervisedUserCircle,
   MdSettings,
@@ -19,18 +23,25 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import {
   Sidebar,
   SidebarBody,
+  SideBarButton,
   SideBarItemButon,
   SidebarLink,
 } from "@/components/aceternity/sidebar";
-import { useAppSelector } from "@/store/Proto-slice/ProtoStore";
+import { useAppSelector } from "@/store/Proto-slice/ProtoStore.slice";
 import { Divider } from "@nextui-org/react";
 
 export function SidebarDemo({ children }: { children: React.ReactNode }) {
-  const links = [
+  const topSideBar: SideBarButton[] = [
     {
       label: "Dashboard",
-      icon: (
-        <MdDashboard
+      iconLine: (
+        <MdOutlineHome
+          size={24}
+          className="text-neutral-700 dark:text-neutral-200 font-thin text-sm  flex-shrink-0"
+        />
+      ),
+      iconFill: (
+        <MdHome
           size={24}
           className="text-neutral-700 dark:text-neutral-200  flex-shrink-0"
         />
@@ -38,27 +49,14 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
     },
     {
       label: "Library",
-      icon: (
+      iconLine: (
+        <MdOutlineLibraryBooks
+          size={24}
+          className="text-neutral-700 dark:text-neutral-200  flex-shrink-0"
+        />
+      ),
+      iconFill: (
         <MdLibraryBooks
-          size={24}
-          className="text-neutral-700 dark:text-neutral-200  flex-shrink-0"
-        />
-      ),
-    },
-
-    {
-      label: "Settings",
-      icon: (
-        <MdSettings
-          size={24}
-          className="text-neutral-700 dark:text-neutral-200  flex-shrink-0"
-        />
-      ),
-    },
-    {
-      label: "Logout",
-      icon: (
-        <MdArrowBack
           size={24}
           className="text-neutral-700 dark:text-neutral-200  flex-shrink-0"
         />
@@ -66,8 +64,25 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
     },
   ];
 
+  const bottomSideBar: SideBarButton[] = [
+    {
+      label: "Settings",
+      iconLine: (
+        <MdOutlineSettings
+          size={24}
+          className="text-neutral-700 dark:text-neutral-200  flex-shrink-0"
+        />
+      ),
+      iconFill: (
+        <MdSettings
+          size={24}
+          className="text-neutral-700 dark:text-neutral-200  flex-shrink-0"
+        />
+      ),
+    },
+  ];
   const { sidebar } = useAppSelector((state) => state.HomePage);
-  const [selectButton, setselectButton] = useState<number>();
+  const [selectButton, setselectButton] = useState<string>();
   return (
     <div
       className={cn(
@@ -78,14 +93,41 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
       <div>
         <Sidebar open={sidebar.isOpen}>
           <SidebarBody className="justify-between gap-10">
-            <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-              <div className="flex flex-col gap-2">
-                {links.map((link, idx) => (
+            <div className="flex flex-col flex-1 justify-between overflow-y-auto overflow-x-hidden">
+              <div className=" flex flex-col gap-4 ">
+                {topSideBar.map((link, idx) => (
                   <SideBarItemButon
-                    onClick={() => setselectButton(idx)}
-                    className={selectButton === idx ? "bg-color-4/40" : ""}
+                    onClick={() => setselectButton(link.label)}
+                    className={
+                      selectButton === link.label ? "bg-color-4/40" : ""
+                    }
                     key={idx}
-                    button={link}
+                    button={{
+                      ...link,
+                      icon:
+                        selectButton === link.label
+                          ? link.iconFill
+                          : link.iconLine,
+                    }}
+                    variant="light"
+                  />
+                ))}
+              </div>
+              <div className=" flex flex-col ">
+                {bottomSideBar.map((link, idx) => (
+                  <SideBarItemButon
+                    onClick={() => setselectButton(link.label)}
+                    className={
+                      selectButton === link.label ? "bg-color-4/40" : ""
+                    }
+                    key={idx}
+                    button={{
+                      ...link,
+                      icon:
+                        selectButton === link.label
+                          ? link.iconFill
+                          : link.iconLine,
+                    }}
                     variant="light"
                   />
                 ))}

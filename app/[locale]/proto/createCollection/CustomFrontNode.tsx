@@ -29,8 +29,8 @@ import {
 import { IoAdd } from "react-icons/io5";
 import { useMeasure } from "@/hooks/use-measure";
 
-import { useAppDispatch } from "@/store/Proto-slice/ProtoStore";
-import { useAppSelector } from "@/store/Proto-slice/ProtoStore";
+import { useAppDispatch } from "@/store/Proto-slice/ProtoStore.slice";
+import { useAppSelector } from "@/store/Proto-slice/ProtoStore.slice";
 import {
   addNode,
   CustomtNodeType,

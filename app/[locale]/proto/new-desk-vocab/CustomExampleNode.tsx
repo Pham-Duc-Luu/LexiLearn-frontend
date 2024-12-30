@@ -36,8 +36,8 @@ import {
   onNodeContentsChange,
   ReoderVocabCardItem,
 } from "@/store/Proto-slice/newDesk.slice";
-import { useAppDispatch } from "@/store/Proto-slice/ProtoStore";
-import { useAppSelector } from "@/store/Proto-slice/ProtoStore";
+import { useAppDispatch } from "@/store/Proto-slice/ProtoStore.slice";
+import { useAppSelector } from "@/store/Proto-slice/ProtoStore.slice";
 import { MdBorderColor, MdDeleteOutline } from "react-icons/md";
 import * as _ from "lodash";
 import ImageFileZone from "@/components/cuicui/ImageFileZone";

@@ -30,7 +30,7 @@ export function ApolloCustomeProvider({
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <NextUIProvider>
-      <NextThemesProvider attribute="class" defaultTheme="dark">
+      <NextThemesProvider attribute="class" defaultTheme="light">
         <Toaster></Toaster>
 
         <PersistGate loading={null} persistor={persistor}>
@@ -41,8 +41,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
               >
                 {children}
               </GoogleOAuthProvider>
-              {/* <ApolloCustomeProvider> */}
-              {/* </ApolloCustomeProvider> */}
             </MouseContextProvider>
           </Provider>
         </PersistGate>

@@ -7,6 +7,11 @@ const SearchingArea = () => {
     <div className=" h-52 bg-color-4/25 flex justify-center items-center">
       <div className=" grid w-full grid-cols-12">
         <div className=" col-span-8 col-start-3 relative">
+          <div className=" p-5 content-center">
+            <span className="  text-2xl w-full font-bold content-center">
+              What do you want to learn
+            </span>
+          </div>
           <Input
             endContent={<MdNavigateNext size={24} />}
             startContent={<MdSearch size={24} />}

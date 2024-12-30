@@ -3,6 +3,9 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig = {
+  images: {
+    domains: ["images.unsplash.com", "picsum.photos"], // Add other domains if needed
+  },
   // Override the default webpack configuration
   webpack: (config) => {
     // See https://webpack.js.org/configuration/resolve/#resolvealias

@@ -2,32 +2,29 @@
 import React, { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import {
+  Avatar,
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Divider,
+  Image,
+} from "@nextui-org/react";
+import { SlOptionsVertical } from "react-icons/sl";
+import { BiCopy, BiLike, BiShareAlt, BiSolidLike } from "react-icons/bi";
 import { faker } from "@faker-js/faker";
-import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 
-type CardType = {
+export type CardType = {
   id: number;
-  content: JSX.Element | React.ReactNode | string;
-  className: string;
+  title: string;
+  description: string;
+
   thumbnail: string;
 };
 
-const SkeletonOne = () => {
-  return (
-    <div>
-      <p className="font-bold md:text-4xl text-xl text-white">
-        House in the woods
-      </p>
-      <p className="font-normal text-base text-white"></p>
-      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
-        A serene and tranquil retreat, this house in the woods offers a peaceful
-        escape from the hustle and bustle of city life.
-      </p>
-    </div>
-  );
-};
-
-export const LayoutGrid = () => {
+export const LayoutGrid = ({ cards }: { cards: CardType[] }) => {
   const [selected, setSelected] = useState<CardType | null>(null);
   const [lastSelected, setLastSelected] = useState<CardType | null>(null);
 
@@ -36,22 +33,26 @@ export const LayoutGrid = () => {
     setSelected(card);
   };
 
+  const [islike, setIslike] = useState<boolean>(false);
+
   const handleOutsideClick = () => {
     setLastSelected(selected);
     setSelected(null);
   };
-  const cards: CardType[] = Array.from({ length: 30 }, (item, index) => {
-    return {
-      id: index + 1,
-      content: <SkeletonOne />,
-      className: "md:col-span-1",
-      thumbnail: faker.image.urlPicsumPhotos(),
-    };
-  });
+  // const [cards, setCard] = useState(
+  //   Array.from({ length: 30 }, (item, index) => {
+  //     return {
+  //       id: index + 1,
+  //       content: <SkeletonOne />,
+  //       className: "md:col-span-1",
+  //       thumbnail: faker.image.urlPicsumPhotos(),
+  //     };
+  //   })
+  // );
   return (
-    <div className=" grid lg:grid-cols-12 grid-cols-4 md:grid-cols-8  gap-6 p-4 ">
-      {cards.map((card, i) => (
-        <div key={i} className={cn("col-span-2")}>
+    <div className=" grid lg:grid-cols-12 grid-cols-4 md:grid-cols-8  gap-6 p-10 ">
+      {cards?.map((card, i) => (
+        <div key={i} className={cn("col-span-3 ")}>
           <motion.div
             onClick={() => handleClick(card)}
             className={cn(
@@ -68,34 +69,34 @@ export const LayoutGrid = () => {
             <Card
               isFooterBlurred
               isPressable
-              className=" border-2 w-full h-full border-white/20"
-              radius="lg"
+              className=" border-2 w-full h-full border-gray-400 "
+              onPress={() => handleClick(card)}
             >
               <CardBody className=" p-0">
                 <Image
-                  className="w-full object-cover h-[140px]"
-                  radius="lg"
-                  shadow="sm"
+                  className="w-full object-cover h-[240px]"
+                  radius="sm"
                   width="100%"
-                  src={faker.image.urlPicsumPhotos()}
+                  src={card.thumbnail}
                 />
               </CardBody>
-              <CardFooter className="text-small justify-between">
-                <b className="truncate">{faker.book.title()}</b>
-                <p className="text-default-500">{faker.finance.amount()}</p>
+              <CardFooter className="text-small justify-between flex">
+                <b className="truncate  ">{card.title}</b>
+                <div className="flex justify-center items-center">
+                  {islike ? (
+                    <Button isIconOnly variant="flat" radius="full">
+                      <BiSolidLike size={20} />
+                    </Button>
+                  ) : (
+                    <Button variant="light" radius="full" isIconOnly>
+                      <BiLike size={20} />
+                    </Button>
+                  )}
+                  <Button variant="light" radius="full" isIconOnly>
+                    <SlOptionsVertical size={20} />
+                  </Button>
+                </div>
               </CardFooter>
-              {/* <CardFooter className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
-              <p className="text-tiny text-white/80">Available soon.</p>
-              <Button
-                className="text-tiny text-white bg-black/20"
-                color="default"
-                radius="lg"
-                size="sm"
-                variant="flat"
-              >
-                Notify me
-              </Button>
-            </CardFooter> */}
             </Card>
           </motion.div>
         </div>
@@ -112,48 +113,28 @@ export const LayoutGrid = () => {
   );
 };
 
-const ImageComponent = ({ card }: { card: CardType }) => {
+const AvatarUserCard = () => {
   return (
-    <>
-      <Card
-        isFooterBlurred
-        isPressable
-        className=" border-2 h-full border-white/20"
-        radius="lg"
-      >
-        <CardBody className=" p-0 overflow-hidden">
-          <Image
-            className=" object-fill "
-            radius="lg"
-            shadow="sm"
-            width={"100%"}
-            src={faker.image.urlPicsumPhotos()}
-          />
-        </CardBody>
-        <CardFooter className="text-small justify-between">
-          <b className="truncate">{faker.book.title()}</b>
-          <p className="text-default-500">{faker.finance.amount()}</p>
-        </CardFooter>
-        {/* <CardFooter className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
-              <p className="text-tiny text-white/80">Available soon.</p>
-              <Button
-                className="text-tiny text-white bg-black/20"
-                color="default"
-                radius="lg"
-                size="sm"
-                variant="flat"
-              >
-                Notify me
-              </Button>
-            </CardFooter> */}
-      </Card>
-    </>
+    <div className=" flex gap-4 ">
+      <Avatar isBordered={true} src={faker.image.urlPicsumPhotos()}></Avatar>
+      <div className=" flex flex-col justify-start items-start">
+        <p className=" text-sm font-thin"> create by</p>
+        <span className=" font-bold">{faker.person.fullName()}</span>
+      </div>
+    </div>
   );
 };
 
 const SelectedCard = ({ selected }: { selected: CardType | null }) => {
   return (
-    <div className="bg-transparent a h-full w-full flex flex-col justify-end rounded-lg shadow-2xl relative z-[60]">
+    <div
+      // style={{
+      //   backgroundImage: `url(${selected?.thumbnail})`,
+      //   backgroundSize: "cover",
+      //   backgroundPosition: "center",
+      // }}
+      className="bg-transparent a h-full w-full flex flex-col justify-end rounded-lg shadow-2xl relative z-[60]"
+    >
       <motion.div
         initial={{
           opacity: 0,
@@ -181,9 +162,57 @@ const SelectedCard = ({ selected }: { selected: CardType | null }) => {
           duration: 0.3,
           ease: "easeInOut",
         }}
-        className="relative px-8 pb-4 z-[70]"
+        className="relative w-full h-full z-[70]"
       >
-        {selected?.content}
+        <Card
+          className="col-span-12 sm:col-span-4 h-full border-2 cursor-default  border-gray-400  "
+          radius="sm"
+        >
+          <div className=" max-h-20 ">
+            <Image
+              removeWrapper
+              alt="Card background"
+              className="z-0 w-full h-20 object-cover rounded-t-sm rounded-b-none"
+              src={selected?.thumbnail}
+            />
+          </div>
+          <CardBody className=" ">
+            <AvatarUserCard></AvatarUserCard>
+            <div className=" pt-4">
+              <h1 className=" font-bold">{selected?.title}</h1>
+              <h1>{selected?.description}</h1>
+              <span className=" font-light text-sm">{`${faker.number.int({
+                min: 20,
+                max: 100,
+              })} vocabularys • ${faker.number.int({
+                min: 20,
+                max: 100,
+              })} flashcards`}</span>
+            </div>
+          </CardBody>
+          <Divider></Divider>
+          <CardFooter className=" flex justify-between p-4">
+            <Button isIconOnly radius="sm" variant="flat" className=" w-36">
+              <BiLike size={24} />
+            </Button>
+            <div className=" flex justify-center items-center gap-4">
+              <Button
+                startContent={<BiShareAlt size={24} />}
+                radius="sm"
+                variant="light"
+                className=" "
+              >
+                Share
+              </Button>
+              <Button isIconOnly radius="sm" variant="light" className=" ">
+                <BiCopy size={24} />
+              </Button>
+              <Button isIconOnly radius="sm" variant="light" className=" ">
+                <SlOptionsVertical size={24} />
+              </Button>
+            </div>
+          </CardFooter>
+        </Card>
       </motion.div>
     </div>
   );

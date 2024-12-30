@@ -31,8 +31,8 @@ import {
   CustomtNodeType,
   deleteNode,
 } from "@/store/Proto-slice/CardNode.proto.slice";
-import { useAppDispatch } from "@/store/Proto-slice/ProtoStore";
-import { useAppSelector } from "@/store/Proto-slice/ProtoStore";
+import { useAppDispatch } from "@/store/Proto-slice/ProtoStore.slice";
+import { useAppSelector } from "@/store/Proto-slice/ProtoStore.slice";
 import { MdDeleteOutline } from "react-icons/md";
 
 const CustomExampleNode = ({

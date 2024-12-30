@@ -37,7 +37,10 @@ import {
 import CustomFrontNode from "./CustomFrontNode";
 
 import CustomMeaninNode from "./CustomMeaningNode";
-import { useAppDispatch, useAppSelector } from "@/store/Proto-slice/ProtoStore";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/store/Proto-slice/ProtoStore.slice";
 import CustomExampleNode from "./CustomExampleNode";
 interface EditPlayGroudProps {
   className?: string;

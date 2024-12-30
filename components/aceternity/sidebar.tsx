@@ -13,9 +13,11 @@ interface Links {
   icon: React.JSX.Element | React.ReactNode;
 }
 
-interface Buttons {
+export interface SideBarButton {
   label: string;
-  icon: React.JSX.Element | React.ReactNode;
+  icon?: React.JSX.Element | React.ReactNode;
+  iconLine?: React.ReactNode;
+  iconFill?: React.ReactNode;
 }
 
 interface SidebarContextProps {
@@ -100,7 +102,7 @@ export const DesktopSidebar = ({
           className
         )}
         animate={{
-          width: animate ? (open ? "260px" : "100px") : "260px",
+          width: animate ? (open ? "260px" : "88px") : "260px",
         }}
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
@@ -163,7 +165,7 @@ export const MobileSidebar = ({
 };
 
 interface SideBarItemButonProps extends ButtonProps {
-  button: Buttons;
+  button: SideBarButton;
 }
 export const SideBarItemButon = ({
   button,
@@ -173,13 +175,14 @@ export const SideBarItemButon = ({
   const { open, animate } = useSidebar();
   return (
     <Button
+      radius="sm"
       className={cn(
         "flex items-center justify-start gap-2  group/sidebar py-2  justify-start items-center min-w-0",
         className
       )}
       {...props}
+      startContent={button?.icon}
     >
-      {button.icon}
       <motion.span
         animate={{
           display: animate ? (open ? "inline-block" : "none ") : "inline-block",

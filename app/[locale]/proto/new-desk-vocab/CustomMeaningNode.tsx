@@ -40,7 +40,7 @@ import {
 import { useAppDispatch } from "@/store/hooks";
 import ImageFileZone from "@/components/cuicui/ImageFileZone";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import { useAppSelector } from "@/store/Proto-slice/ProtoStore";
+import { useAppSelector } from "@/store/Proto-slice/ProtoStore.slice";
 import * as _ from "lodash";
 const CustomMeaninNode = ({
   data,

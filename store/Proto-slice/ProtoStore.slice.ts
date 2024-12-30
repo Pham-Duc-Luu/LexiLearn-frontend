@@ -5,7 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 
 // Or from '@reduxjs/toolkit/query/react'
-
+import ReviewFlashcardReducer from "./ReviewFlashcard.slice";
 import CardNodeProtoReducer from "./CardNode.proto.slice";
 import HomepgeProtoReducer from "./HomePage.proto.slice";
 import NewDeskProtoReducer from "./newDesk.slice";
@@ -15,6 +15,7 @@ export const ProtoStore = configureStore({
     CardNode: CardNodeProtoReducer,
     HomePage: HomepgeProtoReducer,
     NewDesk: NewDeskProtoReducer,
+    ReviewFlashCard: ReviewFlashcardReducer,
     // // apiReducer,
   },
 });

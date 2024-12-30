@@ -20,7 +20,10 @@ import {
   restrictToWindowEdges,
   restrictToFirstScrollableAncestor,
 } from "@dnd-kit/modifiers";
-import { useAppDispatch, useAppSelector } from "@/store/Proto-slice/ProtoStore";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/store/Proto-slice/ProtoStore.slice";
 import * as _ from "lodash";
 import { setReoderVocabCard } from "@/store/Proto-slice/newDesk.slice";
 export default function DndGroup() {
