@@ -8,7 +8,7 @@ import {
   ReoderVocabCardItem,
   setReoderVocabCard,
 } from "@/store/Proto-slice/newDesk.slice";
-import { useAppSelector } from "@/store/Proto-slice/ProtoStore.slice";
+import { useAppSelector } from "@/store/Proto-slice/ProtoStore";
 import { useAppDispatch } from "@/store/hooks";
 import { Button, Divider } from "@nextui-org/react";
 import { MdAdd } from "react-icons/md";
