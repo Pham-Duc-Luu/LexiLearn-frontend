@@ -12,6 +12,7 @@ import {
   IconCards,
   IconMoon,
   IconSun,
+  IconLogin,
 } from "@tabler/icons-react";
 import Image from "next/image";
 import { FloatingDock } from "./floating-dock";
@@ -249,7 +250,13 @@ export function SettingBox() {
       ),
       href: "/proto/home",
     },
-
+    {
+      title: "Login",
+      icon: (
+        <IconLogin className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+      ),
+      href: "/proto/auth",
+    },
     {
       title: "Edit desk page",
       icon: (
