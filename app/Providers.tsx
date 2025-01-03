@@ -30,23 +30,23 @@ export function ApolloCustomeProvider({
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <NextUIProvider>
-      <NextThemesProvider attribute="class" defaultTheme="dark">
-        <Toaster></Toaster>
+      {/* <NextThemesProvider attribute="class" defaultTheme="dark"> */}
+      <Toaster></Toaster>
 
-        <PersistGate loading={null} persistor={persistor}>
-          <Provider store={store}>
-            <MouseContextProvider>
-              <GoogleOAuthProvider
-                clientId={`${process.env.NEXT_PUBLIC_AUTH_GOOGLE_ID}`}
-              >
-                {children}
-              </GoogleOAuthProvider>
-              {/* <ApolloCustomeProvider> */}
-              {/* </ApolloCustomeProvider> */}
-            </MouseContextProvider>
-          </Provider>
-        </PersistGate>
-      </NextThemesProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <Provider store={store}>
+          <MouseContextProvider>
+            <GoogleOAuthProvider
+              clientId={`${process.env.NEXT_PUBLIC_AUTH_GOOGLE_ID}`}
+            >
+              {children}
+            </GoogleOAuthProvider>
+            {/* <ApolloCustomeProvider> */}
+            {/* </ApolloCustomeProvider> */}
+          </MouseContextProvider>
+        </Provider>
+      </PersistGate>
+      {/* </NextThemesProvider> */}
     </NextUIProvider>
   );
 }

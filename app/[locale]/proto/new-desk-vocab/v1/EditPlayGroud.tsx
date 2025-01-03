@@ -41,6 +41,7 @@ import {
   useAppSelector,
 } from "@/store/Proto-slice/ProtoStore.slice";
 import CustomExampleNode from "./CustomExampleNode";
+import StarterKit from "@tiptap/starter-kit";
 interface EditPlayGroudProps {
   className?: string;
 }
@@ -67,8 +68,15 @@ const EditPlayGroud = ({ className }: EditPlayGroudProps) => {
     []
   );
 
+  useEffect(() => {}, [allNodes]);
+
   return (
-    <div className={cn(className, "w-full h-full bg-white")}>
+    <div
+      className={cn(
+        className,
+        "w-full h-full bg-color-3/15 border-2 border-color-3/30 "
+      )}
+    >
       <ReactFlow
         nodes={allNodes}
         edges={edges}
@@ -90,7 +98,7 @@ const EditPlayGroud = ({ className }: EditPlayGroudProps) => {
         // zoomOnDoubleClick={false}
       >
         <MiniMap zoomable pannable /> <Controls />
-        <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
+        <Background />
       </ReactFlow>
     </div>
   );

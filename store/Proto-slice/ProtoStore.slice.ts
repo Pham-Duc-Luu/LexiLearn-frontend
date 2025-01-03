@@ -9,6 +9,8 @@ import ReviewFlashcardReducer from "./ReviewFlashcard.slice";
 import CardNodeProtoReducer from "./CardNode.proto.slice";
 import HomepgeProtoReducer from "./HomePage.proto.slice";
 import NewDeskProtoReducer from "./newDesk.slice";
+import LibraryProtoReducer from "./LibraryStore.slice";
+
 export const ProtoStore = configureStore({
   reducer: {
     // persistedReducer,
@@ -16,6 +18,7 @@ export const ProtoStore = configureStore({
     HomePage: HomepgeProtoReducer,
     NewDesk: NewDeskProtoReducer,
     ReviewFlashCard: ReviewFlashcardReducer,
+    LibraryPage: LibraryProtoReducer,
     // // apiReducer,
   },
 });

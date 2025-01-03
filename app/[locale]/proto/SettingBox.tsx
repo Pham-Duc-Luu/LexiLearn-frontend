@@ -13,6 +13,8 @@ import {
   IconMoon,
   IconSun,
   IconLogin,
+  IconUser,
+  IconLibrary,
 } from "@tabler/icons-react";
 import Image from "next/image";
 import { FloatingDock } from "./floating-dock";
@@ -265,6 +267,13 @@ export function SettingBox() {
       href: "/proto/new-desk-vocab",
     },
     {
+      title: "library",
+      icon: (
+        <IconLibrary className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+      ),
+      href: "/proto/home/library",
+    },
+    {
       title: "Review flashcard page",
       icon: (
         <IconCards className="h-full w-full text-neutral-500 dark:text-neutral-300" />
@@ -286,10 +295,11 @@ export function SettingBox() {
       href: "https://github.com/Pham-Duc-Luu/LexiLearn-frontend",
     },
   ];
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(true);
+
   return (
     <div
-      className=" absolute right-6 bottom-6 flex flex-row-reverse justify-center items-center "
+      className=" absolute right-6 bottom-6 flex flex-row-reverse justify-center origin-left items-center h-14"
       style={{ zIndex: 999 }}
     >
       <Button
@@ -302,11 +312,12 @@ export function SettingBox() {
       >
         <IconAdjustmentsAlt className=" text-neutral-500 dark:text-neutral-300 "></IconAdjustmentsAlt>
       </Button>
-
       <motion.div
-        animate={{ scaleX: toggle ? 1 : 0 }}
+        animate={{ scaleX: toggle ? 1 : 0, display: toggle ? "block" : "none" }}
         style={{ transformOrigin: "right center" }} // Set transform origin to the right
-        className="flex items-center justify-center w-full   "
+        className={cn(
+          "flex items-center absolutes justify-center left-0  -translate-x-full"
+        )}
       >
         <FloatingDockDesktop items={links}></FloatingDockDesktop>
       </motion.div>

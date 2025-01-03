@@ -17,7 +17,7 @@ import {
   MdOutlineSupervisedUserCircle,
   MdSettings,
 } from "react-icons/md";
-import { FaRegUser } from "react-icons/fa";
+import { FaRegUser, FaRegUserCircle, FaUserCircle } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import {
@@ -47,6 +47,7 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
         />
       ),
     },
+
     {
       label: "Library",
       iconLine: (
@@ -57,6 +58,21 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
       ),
       iconFill: (
         <MdLibraryBooks
+          size={24}
+          className="text-neutral-700 dark:text-neutral-200  flex-shrink-0"
+        />
+      ),
+    },
+    {
+      label: "User",
+      iconLine: (
+        <FaRegUserCircle
+          size={24}
+          className="text-neutral-700 dark:text-neutral-200 font-thin text-sm  flex-shrink-0"
+        />
+      ),
+      iconFill: (
+        <FaUserCircle
           size={24}
           className="text-neutral-700 dark:text-neutral-200  flex-shrink-0"
         />

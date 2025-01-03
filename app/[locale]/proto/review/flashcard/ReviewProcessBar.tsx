@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { useAppSelector } from "@/store/Proto-slice/ProtoStore";
+import { useAppSelector } from "@/store/Proto-slice/ProtoStore.slice";
 import { Progress } from "@nextui-org/react";
 import { useScroll, motion, useSpring } from "framer-motion";
 import React, { useEffect, useState } from "react";

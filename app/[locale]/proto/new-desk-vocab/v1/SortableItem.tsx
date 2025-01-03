@@ -55,7 +55,9 @@ export function SortableItem({
         <Button
           className={cn(
             "rounded-sm px-0 w-full grid grid-cols-12 content-center gap-0",
-            currentReorderVocal?.id === item.id && "bg-color-4/25"
+            currentReorderVocal?.id === item.id
+              ? "bg-color-4/25  border-color-4 border-x-2 border-t-2 border-b-4 "
+              : "bg-color-3/15 border-2 border-color-3/30"
           )}
           onClick={() => {
             if (currentReoderCardIndex != item.id) {

@@ -45,7 +45,7 @@ import {
 } from "@/store/Proto-slice/newDesk.slice";
 import { languages } from "@/store/Proto-slice/newDesk.slice";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import FileImportButton from "../../create/collection/FileImportButton";
+import FileImportButton from "../../../create/collection/FileImportButton";
 import ImageFileZone from "@/components/cuicui/ImageFileZone";
 import {
   MdAbc,
@@ -54,6 +54,11 @@ import {
   MdBorderColor,
 } from "react-icons/md";
 import * as _ from "lodash";
+import { EditorContent, useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import Placeholder from "@tiptap/extension-placeholder";
+import "./Header.css";
+
 const CustomFrontNode = ({
   data,
   isConnectable,
@@ -82,8 +87,30 @@ const CustomFrontNode = ({
     reoderCards,
   ]);
 
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      Placeholder.configure({
+        // Use a placeholder:
+        // Use different placeholders depending on the node type:
+        placeholder: ({ node }) => {
+          return "Enter your vocabulary here...";
+        },
+      }),
+    ],
+    content: "", // Initial empty content
+    onUpdate: ({ editor }) => {
+      // Truncate content if there's more than one line
+      const content = editor.getText();
+      const truncatedContent = content.split("\n")[0]; // Only take the first line
+      if (content !== truncatedContent) {
+        editor.commands.setContent(truncatedContent);
+      }
+    },
+  });
+
   return (
-    <div className="" style={{ width: 442, height: 168 }}>
+    <div className=" bg-white" style={{ width: 442, height: 168 }}>
       {/* <NodeResizer></NodeResizer> */}
       <Handle
         type="source"
@@ -95,16 +122,16 @@ const CustomFrontNode = ({
         isConnectable={isConnectable}
       ></Handle>
 
-      <Card className=" shadow-xl border-1" radius="sm">
+      <Card className=" shadow-xl border-2 border-color-4 bg-color-4/40  rounded-sm">
         <CardHeader className="   py-4 drag-handle__label drag-handle__custom  light: pt-2 px-4 flex justify-between items-center ">
-          <div className=" flex justify-center items-center gap-4">
+          {/* <div className=" flex text-xl text-white justify-center items-center gap-4">
             <MdAbc size={20} />
 
             <span className=" font-bold">
               {frontCard?.index && frontCard?.index + 1}
             </span>
-          </div>
-          <Dropdown radius="sm">
+          </div> */}
+          {/* <Dropdown radius="sm">
             <DropdownTrigger>
               <Button variant="bordered" isIconOnly size="sm">
                 <IoAdd size={28} />
@@ -139,26 +166,11 @@ const CustomFrontNode = ({
                 Auto genenate
               </DropdownItem>
             </DropdownMenu>
-          </Dropdown>
+          </Dropdown> */}
         </CardHeader>
-        <Divider className=""></Divider>
-        <CardBody className="overflow-visible py-2  cursor-default">
+        <CardBody className="overflow-visible py-2   cursor-default">
           <div className=" flex gap-4 justify-center items-center ">
-            {/* <Textarea
-              disableAnimation
-              disableAutosize
-              classNames={{
-                base: "max-w-xs",
-                input: "resize-y min-h-[70px] w-[300px]",
-              }}
-              minRows={4}
-              maxRows={6}
-              variant="bordered"
-              onChange={(e) => {
-                // data.onTextChange && data.onTextChange(e.target.value);
-              }}
-            ></Textarea> */}
-            <Input
+            {/* <Input
               value={frontCard?.text ? frontCard?.text : ""}
               size="lg"
               onChange={(e) => {
@@ -171,11 +183,13 @@ const CustomFrontNode = ({
               }}
               className=" text-lg"
               radius="sm"
-            ></Input>
-            <ImageFileZone></ImageFileZone>
+            ></Input> */}
+            <div className="editor-container bg-color-4/70 p-2 h-14 text-white rounded-sm  flex-1">
+              <EditorContent editor={editor}></EditorContent>
+            </div>
+            {/* <ImageFileZone></ImageFileZone> */}
           </div>
         </CardBody>
-        <Divider></Divider>
 
         <CardFooter className="p-0 flex justify-end">
           <Dropdown placement="bottom" radius="sm">

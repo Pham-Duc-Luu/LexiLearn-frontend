@@ -15,6 +15,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "@/store/Proto-slice/ProtoStore.slice";
+import { CgEditFlipV } from "react-icons/cg";
 
 const FlipCard = ({
   Flashcard,
@@ -65,150 +66,166 @@ const FlipCard = ({
     setIsDisableFlip(true);
   };
   return (
-    <motion.div
-      onAnimationComplete={() => handleNextCardAnimationComplete()}
-      onAnimationStart={() => handleNextCardAnimationStart()}
-      className={cn(
-        " lg:w-[1000px] lg:h-[450px] w-20 h-20  rounded-sm   absolute bg-transparent flex flex-col justify-between",
-        !isDisplay && "hidden"
-      )}
-      key={index}
-      exit={{ top: 200, opacity: 0 }}
-      style={{
-        transformOrigin: "top center",
-        perspective: "1000px",
-      }}
-      transition={{ duration: 0.4, delay: 0 }}
-      animate={{
-        top:
-          Flashcard.index === currentFlashcardIndex - 1
-            ? 200
-            : (Flashcard.index - currentFlashcardIndex) * -CARD_OFFSET,
-        left:
-          Flashcard.index === currentFlashcardIndex - 1
-            ? Flashcard.review_result === "bad"
-              ? -200
-              : 200
-            : 0,
-
-        opacity: Flashcard.index === currentFlashcardIndex - 1 ? 0 : 1,
-        scale: 1 - (Flashcard.index - currentFlashcardIndex) * SCALE_FACTOR, // decrease scale for cards that are behind
-        zIndex: flashcards?.length - Flashcard.index, //  decrease z-index for the cards that are behind
-      }}
-    >
+    <>
       <motion.div
+        onAnimationComplete={() => handleNextCardAnimationComplete()}
+        onAnimationStart={() => handleNextCardAnimationStart()}
+        className={cn(
+          " lg:w-[1000px] lg:h-[450px] w-20 h-20  rounded-sm   absolute bg-transparent flex flex-col justify-between",
+          !isDisplay && "hidden"
+        )}
+        key={index}
+        exit={{ top: 200, opacity: 0 }}
         style={{
-          width: "100%",
-          height: "100%",
-          position: "relative",
-          transformStyle: "preserve-3d", // Enable 3D transformations
+          transformOrigin: "top center",
+          perspective: "1000px",
         }}
+        transition={{ duration: 0.4, delay: 0 }}
         animate={{
-          rotateX: isFlip ? 180 : 0, // Flip effect
-        }}
-        className=""
-        transition={{ duration, ease: "easeInOut" }}
-      >
-        {/* Front Side */}
-        <motion.div
-          style={{
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            scale: 0.97,
-            backfaceVisibility: "hidden", // Hide when flipped
-          }}
-          exit={{ opacity: 0 }}
-          animate={{ opacity: !isFlip ? 1 : 0 }}
-          onClick={() => handlerFlip()}
-          transition={{ duration, ease: "easeInOut" }}
-          className=" "
-        >
-          <Card
-            className={cn(
-              " w-full h-full overflow-hidden  rounded-sm shadow-2xl border-t-3 border-b-[8px] border-x-3 ",
-              Flashcard?.review_result === "default" && "border-color-4",
-              Flashcard?.review_result === "bad" && "border-warning",
-              Flashcard?.review_result === "good" && "border-success"
-            )}
-          >
-            <CardBody
-              className={cn(
-                " py-2  grid   gap-6 overflow-hidden grid-cols-2",
-                Flashcard?.review_result === "default" && "bg-color-4/20",
-                Flashcard?.review_result === "bad" && "bg-warning/20",
-                Flashcard?.review_result === "good" && "bg-success/20"
-              )}
-            >
-              <Image
-                alt="Card front"
-                loading="lazy"
-                src={Flashcard?.front_image}
-                isZoomed
-                disableSkeleton={false}
-                height={400}
-                className=" rounded-sm order-2 border-gray-400 flex justify-center items-center content-center"
-                radius="sm"
-              />
-              <div className=" w-full h-full  flex justify-center items-center overflow-y-scroll">
-                <span className=" text-6xl font-bold">
-                  {Flashcard?.index}
-                  {Flashcard?.front_text}
-                </span>
-              </div>
-            </CardBody>
-          </Card>
-        </motion.div>
+          top:
+            Flashcard.index === currentFlashcardIndex - 1
+              ? 200
+              : (Flashcard.index - currentFlashcardIndex) * -CARD_OFFSET,
+          left:
+            Flashcard.index === currentFlashcardIndex - 1
+              ? Flashcard.review_result === "bad"
+                ? -200
+                : 200
+              : 0,
 
-        {/* Back Side */}
+          opacity: Flashcard.index === currentFlashcardIndex - 1 ? 0 : 1,
+          scale: 1 - (Flashcard.index - currentFlashcardIndex) * SCALE_FACTOR, // decrease scale for cards that are behind
+          zIndex: flashcards?.length - Flashcard.index, //  decrease z-index for the cards that are behind
+        }}
+      >
         <motion.div
           style={{
-            position: "absolute",
             width: "100%",
             height: "100%",
-            backfaceVisibility: "hidden", // Hide when flipped
-            transform: "rotateX(180deg)", // Rotate back face
+            position: "relative",
+            transformStyle: "preserve-3d", // Enable 3D transformations
           }}
-          animate={{ opacity: !isFlip ? 0 : 1 }}
+          animate={{
+            rotateX: isFlip ? 180 : 0, // Flip effect
+          }}
+          className=""
           transition={{ duration, ease: "easeInOut" }}
-          onClick={() => handlerFlip()}
         >
-          <Card
-            className={cn(
-              "  w-full h-full overflow-hidden  rounded-sm shadow-2xl border-color-4 border-t-3 border-b-[8px] border-x-3 ",
-              Flashcard?.review_result === "default" && "border-color-4",
-              Flashcard?.review_result === "bad" && "border-warning",
-              Flashcard?.review_result === "good" && "border-success"
-            )}
+          {/* Front Side */}
+          <motion.div
+            style={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              scale: 0.97,
+              backfaceVisibility: "hidden", // Hide when flipped
+            }}
+            exit={{ opacity: 0 }}
+            animate={{ opacity: !isFlip ? 1 : 0 }}
+            onClick={() => handlerFlip()}
+            transition={{ duration, ease: "easeInOut" }}
+            className=" "
           >
-            <CardBody
+            <Card
               className={cn(
-                " py-2  grid   gap-6 overflow-hidden grid-cols-2",
-                Flashcard?.review_result === "default" && "bg-color-4/20",
-                Flashcard?.review_result === "bad" && "bg-warning/20",
-                Flashcard?.review_result === "good" && "bg-success/20"
+                " w-full h-full overflow-hidden  rounded-sm shadow-2xl border-t-3 border-b-[8px] border-x-3 ",
+                Flashcard?.review_result === "default" && "border-color-4",
+                Flashcard?.review_result === "bad" && "border-warning",
+                Flashcard?.review_result === "good" && "border-success"
               )}
             >
-              <Image
-                alt="Card front"
-                loading="lazy"
-                height={400}
-                isZoomed
-                className="object-fill rounded-sm aspect-square border-2 border-gray-400 "
-                src={Flashcard?.back_image}
-                radius="sm"
-              />
-              <div className=" w-full h-full  flex flex-col justify-center items-center">
-                <span className=" text-6xl font-bold">
-                  {Flashcard?.back_text}
-                </span>
-                <span>{Flashcard?.back_example}</span>
-              </div>
-            </CardBody>
-          </Card>
+              <CardBody
+                className={cn(
+                  " py-2  grid   gap-6 overflow-hidden grid-cols-2",
+                  Flashcard?.review_result === "default" && "bg-color-4/20",
+                  Flashcard?.review_result === "bad" && "bg-warning/20",
+                  Flashcard?.review_result === "good" && "bg-success/20"
+                )}
+              >
+                <Image
+                  alt="Card front"
+                  loading="lazy"
+                  src={Flashcard?.front_image}
+                  isZoomed
+                  disableSkeleton={false}
+                  height={400}
+                  className=" rounded-sm order-2 border-gray-400 flex justify-center items-center content-center"
+                  radius="sm"
+                />
+                <div className=" w-full h-full  flex justify-center items-center overflow-y-scroll">
+                  <span className=" text-6xl font-bold">
+                    {Flashcard?.index}
+                    {Flashcard?.front_text}
+                  </span>
+                </div>
+              </CardBody>
+            </Card>
+          </motion.div>
+
+          {/* Back Side */}
+          <motion.div
+            style={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              backfaceVisibility: "hidden", // Hide when flipped
+              transform: "rotateX(180deg)", // Rotate back face
+            }}
+            animate={{ opacity: !isFlip ? 0 : 1 }}
+            transition={{ duration, ease: "easeInOut" }}
+            onClick={() => handlerFlip()}
+          >
+            <Card
+              className={cn(
+                "  w-full h-full overflow-hidden  rounded-sm shadow-2xl border-color-4 border-t-3 border-b-[8px] border-x-3 ",
+                Flashcard?.review_result === "default" && "border-color-4",
+                Flashcard?.review_result === "bad" && "border-warning",
+                Flashcard?.review_result === "good" && "border-success"
+              )}
+            >
+              <CardBody
+                className={cn(
+                  " py-2  grid   gap-6 overflow-hidden grid-cols-2",
+                  Flashcard?.review_result === "default" && "bg-color-4/20",
+                  Flashcard?.review_result === "bad" && "bg-warning/20",
+                  Flashcard?.review_result === "good" && "bg-success/20"
+                )}
+              >
+                <Image
+                  alt="Card front"
+                  loading="lazy"
+                  height={400}
+                  isZoomed
+                  className="object-fill rounded-sm aspect-square border-2 border-gray-400 "
+                  src={Flashcard?.back_image}
+                  radius="sm"
+                />
+                <div className=" w-full h-full  flex flex-col justify-center items-center">
+                  <span className=" text-6xl font-bold">
+                    {Flashcard?.back_text}
+                  </span>
+                  <span>{Flashcard?.back_example}</span>
+                </div>
+              </CardBody>
+            </Card>
+          </motion.div>
         </motion.div>
       </motion.div>
-    </motion.div>
+      {Flashcard.index === currentFlashcardIndex && (
+        <Button
+          className=" absolute translate-x-full translate-y-1/2 bottom-1/2 -right-4 border-x-2 border-t-2 border-b-4 bg-color-3/20 border-color-3"
+          radius="sm"
+          variant="flat"
+          startContent={<CgEditFlipV size={20} />}
+          onClick={() => {
+            handlerFlip();
+          }}
+          size="lg"
+        >
+          Flip
+        </Button>
+      )}
+    </>
   );
 };
 let interval: any;
