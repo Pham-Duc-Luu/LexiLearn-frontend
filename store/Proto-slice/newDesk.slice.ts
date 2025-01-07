@@ -95,7 +95,48 @@ export const NewDeskProtoSlice = createSlice({
         state.edges = [];
       }
     },
+    onReoderVocabCardItemChange: (
+      state,
+      payload: PayloadAction<ReoderVocabCardItem>
+    ) => {
+      const currentCardItemIndex = _.findIndex(state.reoderCards, function (o) {
+        return o.id === payload.payload.id;
+      });
 
+      if (currentCardItemIndex >= 0) {
+        state.reoderCards[currentCardItemIndex] = payload.payload;
+      }
+    },
+    onReoderVocabCardItemFrontChange: (
+      state,
+      payload: PayloadAction<Pick<ReoderVocabCardItem, "id" | "word">>
+    ) => {
+      const currentCardItemIndex = _.findIndex(state.reoderCards, function (o) {
+        return o.id === payload.payload.id;
+      });
+
+      if (currentCardItemIndex >= 0) {
+        state.reoderCards[currentCardItemIndex] = {
+          ...state.reoderCards[currentCardItemIndex],
+          word: payload.payload.word,
+        };
+      }
+    },
+    onReoderVocabCardItemBackChange: (
+      state,
+      payload: PayloadAction<Pick<ReoderVocabCardItem, "id" | "mean">>
+    ) => {
+      const currentCardItemIndex = _.findIndex(state.reoderCards, function (o) {
+        return o.id === payload.payload.id;
+      });
+
+      if (currentCardItemIndex >= 0) {
+        state.reoderCards[currentCardItemIndex] = {
+          ...state.reoderCards[currentCardItemIndex],
+          mean: payload.payload.mean,
+        };
+      }
+    },
     setCurrentReoderVocabCardItem: (
       state,
       payload: PayloadAction<ReoderVocabCardItem["id"]>
@@ -493,6 +534,9 @@ export const {
   deleteNode,
   onNodeContentsChange,
   addMeanToCurrentCardItem,
+  onReoderVocabCardItemBackChange,
+  onReoderVocabCardItemChange,
+  onReoderVocabCardItemFrontChange,
   setNode,
 } = NewDeskProtoSlice.actions;
 

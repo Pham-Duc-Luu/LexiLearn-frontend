@@ -159,5 +159,21 @@
     "username": "username",
     "sign in": "sign in",
     "sign up": "sign up"
+  },
+  "create new desk": {
+    "title": "create new desk",
+    "information form": {
+      "title": "Give your desk a title",
+      "title input": {
+        "placeholder": "Enter your title here..."
+      },
+      "description input": {
+        "placeholder": "Enter your description here..."
+      },
+      "function": {
+        "keep editing vocabulary": "Keep editing your vocabulary"
+      }
+    },
+    "front": {}
   }
 }

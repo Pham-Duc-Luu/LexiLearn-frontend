@@ -60,6 +60,7 @@ const ListFlashcardDrawer = () => {
       <Drawer
         radius="sm"
         backdrop="blur"
+        isDismissable={false}
         isOpen={isOpen}
         onOpenChange={onOpenChange}
       >
