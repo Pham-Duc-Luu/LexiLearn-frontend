@@ -10,13 +10,19 @@ const DropDrowRecommend = ({
   return (
     <Card
       className={cn(
-        " absolute z-30 translate-y-2 top-full origin-top rounded-sm",
+        " absolute z-30 translate-y-2 overflow-y-scroll top-full origin-top rounded-sm",
         className
       )}
     >
       {filters?.map((item, index) => {
         return (
-          <CardBody className=" cursor-pointer hover:bg-color-4/20" key={index}>
+          <CardBody
+            className=" cursor-pointer hover:bg-color-4/20"
+            onClick={() => {
+              onSelect && onSelect(item);
+            }}
+            key={index}
+          >
             {item}
           </CardBody>
         );

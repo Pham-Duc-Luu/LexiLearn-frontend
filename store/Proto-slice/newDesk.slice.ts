@@ -12,15 +12,22 @@ import {
   type Edge,
 } from "@xyflow/react";
 
+export type CardType = "front" | "back";
+
 export interface ReoderVocabCardItem {
   id: string;
   word?: CardContent;
   mean?: CardContent;
   examples?: CardContent[];
 }
-export const languages: string[] = ["English", "Japanese", "Chinese"] as const;
+export const languages: string[] = [
+  "English",
+  "Japanese",
+  "Chinese",
+  "other",
+] as const;
 
-export const CardType = ["word", "mean", "example"] as const;
+export const CardType = ["word", "mean", "example", "other"] as const;
 
 export interface CardContent {
   text?: string;
@@ -135,6 +142,31 @@ export const NewDeskProtoSlice = createSlice({
           ...state.reoderCards[currentCardItemIndex],
           mean: payload.payload.mean,
         };
+      }
+    },
+    updateReoderCarditem: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{
+        type: CardType;
+        data: CardContent;
+        id: ReoderVocabCardItem["id"];
+      }>
+    ) => {
+      const currentCardItemIndex = _.findIndex(state.reoderCards, function (o) {
+        return o.id === payload.id;
+      });
+      // IMPORTANT: only update when find the card with id
+      if (currentCardItemIndex >= 0) {
+        // * update the front card
+        if (payload.type === "front") {
+          state.reoderCards[currentCardItemIndex].word = payload.data;
+        }
+        // * update the back card
+        if (payload.type === "back") {
+          state.reoderCards[currentCardItemIndex].mean = payload.data;
+        }
       }
     },
     setCurrentReoderVocabCardItem: (
@@ -536,6 +568,7 @@ export const {
   addMeanToCurrentCardItem,
   onReoderVocabCardItemBackChange,
   onReoderVocabCardItemChange,
+  updateReoderCarditem,
   onReoderVocabCardItemFrontChange,
   setNode,
 } = NewDeskProtoSlice.actions;

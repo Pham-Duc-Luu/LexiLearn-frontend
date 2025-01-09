@@ -11,14 +11,13 @@ import StarterKit from "@tiptap/starter-kit";
 import React, { useEffect, useState } from "react";
 import Text from "@tiptap/extension-text";
 import "./Header.css";
-import Frontcard from "./Frontcard";
-import BackCard from "./BackCard";
 import {
   ReoderVocabCardItem,
   setCurrentReoderVocabCardItem,
 } from "@/store/Proto-slice/newDesk.slice";
 
 import * as _ from "lodash";
+import EditFlashcard from "./Editflashcard";
 const page = () => {
   const { reoderCards, currentReoderCardIndex } = useAppSelector(
     (state) => state.NewDesk
@@ -43,9 +42,26 @@ const page = () => {
   }, [currentReoderCardIndex, reoderCards]);
 
   return (
-    <div className="h-full p-4   flex-1 grid grid-rows-12 gap-4">
-      {card && <Frontcard card={card}></Frontcard>}
-      <BackCard></BackCard>
+    <div className="h-fit p-4 overflow-y-scroll flex-1 grid grid-cols-12 gap-4">
+      {reoderCards.map((item, index) => {
+        if (item.id !== currentReoderCardIndex) {
+          return <></>;
+        }
+        return (
+          <>
+            <EditFlashcard
+              type="front"
+              id={item.id}
+              cardContent={item.word}
+            ></EditFlashcard>
+            <EditFlashcard
+              type="back"
+              id={item.id}
+              cardContent={item.mean}
+            ></EditFlashcard>
+          </>
+        );
+      })}
     </div>
   );
 };
