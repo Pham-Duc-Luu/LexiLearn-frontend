@@ -12,6 +12,17 @@ export const routeState = {
   AUTH_SIGN_UP: () => `/auth/sign-up/v2`,
   AUTH_FORGOTPASSWORD: () => `/auth/forgot-password`,
 };
+export const routeProto = {
+  HOME: () => `/proto/home`,
+  AUTH: () => `/proto/auth`,
+  DESK_EDIT: () => `/proto/new-desk-vocab`,
+  REVIEW_FLASHCARD: () => `/proto/review/flashcard`,
+  LIBRARY: () => `/proto/home/library`,
+  PROFILE: (profileId?: string) =>
+    profileId && profileId.length > 0
+      ? `/proto/home/profile${profileId}`
+      : `/proto/home/profile`,
+};
 
 export const {
   DASHBOARD_ROUTE,

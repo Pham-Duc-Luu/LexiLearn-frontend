@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CollectionDto, IFlashCardDto } from "./dto/dto.type";
 import { v4 } from "uuid";
-import { IReorderItemCard } from "@/app/[locale]/create/collection/page";
+import { IReorderItemCard } from "@/app/[locale]/legacy/create/collection/page";
 import _ from "lodash";
 export interface INewCollection
   extends Partial<

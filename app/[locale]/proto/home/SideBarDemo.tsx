@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import {
+  MdAdd,
   MdArrowBack,
   MdDashboard,
   MdHome,
@@ -29,6 +30,8 @@ import {
 } from "@/components/aceternity/sidebar";
 import { useAppSelector } from "@/store/Proto-slice/ProtoStore.slice";
 import { Divider } from "@nextui-org/react";
+import { routeProto } from "@/store/route.slice";
+import { useRouter } from "@/i18n/routing";
 
 export function SidebarDemo({ children }: { children: React.ReactNode }) {
   const topSideBar: SideBarButton[] = [
@@ -40,6 +43,7 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
           className="text-neutral-700 dark:text-neutral-200 font-thin text-sm  flex-shrink-0"
         />
       ),
+      href: routeProto.HOME(),
       iconFill: (
         <MdHome
           size={24}
@@ -56,6 +60,8 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
           className="text-neutral-700 dark:text-neutral-200  flex-shrink-0"
         />
       ),
+      href: routeProto.LIBRARY(),
+
       iconFill: (
         <MdLibraryBooks
           size={24}
@@ -63,21 +69,40 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
         />
       ),
     },
+
     {
-      label: "User",
+      label: "Add",
       iconLine: (
-        <FaRegUserCircle
+        <MdAdd
           size={24}
-          className="text-neutral-700 dark:text-neutral-200 font-thin text-sm  flex-shrink-0"
+          className="text-neutral-700 dark:text-neutral-200  flex-shrink-0"
         />
       ),
+      href: routeProto.DESK_EDIT(),
+
       iconFill: (
-        <FaUserCircle
+        <MdAdd
           size={24}
           className="text-neutral-700 dark:text-neutral-200  flex-shrink-0"
         />
       ),
     },
+    // {
+    //   label: "User",
+    //   iconLine: (
+    //     <FaRegUserCircle
+    //       size={24}
+    //       className="text-neutral-700 dark:text-neutral-200 font-thin text-sm  flex-shrink-0"
+    //     />
+    //   ),
+
+    //   iconFill: (
+    //     <FaUserCircle
+    //       size={24}
+    //       className="text-neutral-700 dark:text-neutral-200  flex-shrink-0"
+    //     />
+    //   ),
+    // },
   ];
 
   const bottomSideBar: SideBarButton[] = [
@@ -99,6 +124,7 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
   ];
   const { sidebar } = useAppSelector((state) => state.HomePage);
   const [selectButton, setselectButton] = useState<string>();
+  const route = useRouter();
   return (
     <div
       className={cn(
@@ -113,7 +139,10 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
               <div className=" flex flex-col gap-4 ">
                 {topSideBar.map((link, idx) => (
                   <SideBarItemButon
-                    onClick={() => setselectButton(link.label)}
+                    onClick={() => {
+                      link.href && route.push(link.href);
+                      setselectButton(link.label);
+                    }}
                     className={
                       selectButton === link.label ? "bg-color-4/40" : ""
                     }

@@ -3,7 +3,7 @@ import SparklesText from "@/components/magicui/sparkles-text";
 import { useRouter } from "@/i18n/routing";
 import { axiosApi } from "@/lib/api/axios";
 import { useAppDispatch } from "@/store/hooks";
-import { DASHBOARD_ROUTE } from "@/store/route.slice";
+import { DASHBOARD_ROUTE, routeProto } from "@/store/route.slice";
 import { useGetProfileQuery } from "@/store/RTK-query/userApi";
 import { Spinner } from "@nextui-org/react";
 import { useEffect, useLayoutEffect } from "react";
@@ -36,7 +36,7 @@ export default function HomePage() {
   // }, [router]);
 
   useEffect(() => {
-    router.push(DASHBOARD_ROUTE());
+    router.push(routeProto.HOME());
   }, []);
 
   const {} = useGetProfileQuery({});

@@ -11,7 +11,7 @@ import {
 import axiosBaseQuery from "./axios/axiosBaseQuery";
 import { RootState } from "../store";
 import _ from "lodash";
-import { IReorderItemCard } from "@/app/[locale]/create/collection/page";
+import { IReorderItemCard } from "@/app/[locale]/legacy/create/collection/page";
 import { api } from "../graphql/COLLECTION.generated";
 
 // Define an API slice

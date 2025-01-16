@@ -17,7 +17,7 @@ import {
 } from "react-icons/md";
 import { CiLock } from "react-icons/ci";
 import { useTranslations } from "next-intl";
-import { IReorderItemCard } from "@/app/[locale]/create/collection/page";
+import { IReorderItemCard } from "@/app/[locale]/legacy/create/collection/page";
 import _ from "lodash";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 

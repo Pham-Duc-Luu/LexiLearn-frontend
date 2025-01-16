@@ -17,7 +17,7 @@ import {
 } from "react-icons/md";
 import { CiLock } from "react-icons/ci";
 import { flashCardDto } from "@/lib/api/collection.user.axios";
-import { Card as ICard } from "@/app/[locale]/edit/collection/[id]/page";
+import { Card as ICard } from "@/app/[locale]/legacy/edit/collection/[id]/page";
 import { useState } from "react";
 
 export interface CreateCardProps extends Partial<flashCardDto> {

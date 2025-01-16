@@ -13,7 +13,7 @@ import {
   Link,
 } from "@nextui-org/react";
 import AnimatedCircularProgressBar from "@/components/ui/animated-circular-progress-bar";
-import { ConfettiFireworks } from "../../../../../components/magicui/FireworksButton";
+import { ConfettiFireworks } from "../../../../../../components/magicui/FireworksButton";
 import confetti from "canvas-confetti";
 import { useTranslations } from "next-intl";
 import { MdOutlineChangeCircle } from "react-icons/md";

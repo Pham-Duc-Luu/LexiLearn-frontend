@@ -18,6 +18,7 @@ export interface SideBarButton {
   icon?: React.JSX.Element | React.ReactNode;
   iconLine?: React.ReactNode;
   iconFill?: React.ReactNode;
+  href?: string;
 }
 
 interface SidebarContextProps {
