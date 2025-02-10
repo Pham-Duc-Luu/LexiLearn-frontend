@@ -10,7 +10,7 @@ import {
   Input,
   Pagination,
   PaginationItemRenderProps,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import React from "react";
 import {
   MdOutlineNavigateBefore,
@@ -24,7 +24,7 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { CiFilter } from "react-icons/ci";
 import { TbMenuOrder, TbVocabulary } from "react-icons/tb";
 import { useAppSelector } from "@/store/Proto-slice/ProtoStore.slice";
@@ -33,7 +33,7 @@ import { IconVocabulary } from "@tabler/icons-react";
 import dayjs from "dayjs";
 import { BsCollection } from "react-icons/bs";
 dayjs.extend(relativeTime);
-import { PaginationItemType } from "@nextui-org/react";
+import { PaginationItemType } from "@heroui/react";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { IoTrashBin, IoTrashBinOutline } from "react-icons/io5";
 import { cn } from "@/lib/utils";
@@ -98,7 +98,9 @@ const renderItem = ({
   );
 };
 const ListBar = () => {
-  const { libraryList } = useAppSelector((state) => state.LibraryPage);
+  const { libraryList } = useAppSelector(
+    (state) => state.persistedReducer.LibraryPage
+  );
   return (
     <div className=" col-span-9 p-4 h-full overflow-y-scroll">
       <Input

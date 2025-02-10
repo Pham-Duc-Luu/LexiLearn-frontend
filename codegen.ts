@@ -1,19 +1,23 @@
-import type { CodegenConfig } from "@graphql-codegen/cli";
+import type {CodegenConfig} from '@graphql-codegen/cli'
 
 const config: CodegenConfig = {
-  overwrite: true,
-  schema: "http://localhost:5000/graphql",
-  documents: ["store/**/*.graphql"],
-  ignoreNoDocuments: true, // for better experience with the watcher
-  generates: {
-    // "store/graphql-request/sdk.ts": {
-    //   plugins: [
-    //     "typescript",
-    //     "typescript-graphql-request",
-    //     "typescript-operations",
-    //   ],
-    // },
-  },
-};
+    schema: './src/graphql/schema.graphql',
+    documents: './src/graphql/document.graphql',
+    generates: {
+        './src/services/generated.ts': {
+            plugins: [
+                'typescript',
+                'typescript-resolvers',
+                {
+                    'typescript-rtk-query': {
+                        importBaseApiFrom: './baseApi',
+                        importBaseApiAlternateName: 'baseApiWithGraphql',
+                        exportHooks: true,
+                    },
+                },
+            ],
+        },
+    },
+}
 
-export default config;
+export default config

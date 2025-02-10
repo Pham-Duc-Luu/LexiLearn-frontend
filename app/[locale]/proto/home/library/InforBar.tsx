@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import React from "react";
 import { AiOutlineLike } from "react-icons/ai";
 import { MdAutorenew } from "react-icons/md";

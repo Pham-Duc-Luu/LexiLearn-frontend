@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import { nextui } from "@nextui-org/react";
+import { heroui } from "@heroui/react";
 const {
   default: flattenColorPalette,
 } = require("tailwindcss/lib/util/flattenColorPalette");
@@ -23,7 +23,7 @@ const config = {
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
-    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   prefix: "",
   theme: {
@@ -119,7 +119,7 @@ const config = {
     },
   },
 
-  plugins: [tailwindcssAnimate, nextui(), addVariablesForColors],
+  plugins: [tailwindcssAnimate, heroui(), addVariablesForColors],
 } satisfies Config;
 
 export default config;

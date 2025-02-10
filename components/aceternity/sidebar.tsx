@@ -5,7 +5,7 @@ import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { IoIosMenu } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
-import { Button, ButtonProps } from "@nextui-org/react";
+import { Button, ButtonProps } from "@heroui/react";
 
 interface Links {
   label: string;

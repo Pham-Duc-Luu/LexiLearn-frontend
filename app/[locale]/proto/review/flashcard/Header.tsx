@@ -8,7 +8,7 @@ import {
   Navbar,
   NavbarContent,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import React from "react";
 import { IoCaretBack } from "react-icons/io5";
 

@@ -4,7 +4,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "@/store/Proto-slice/ProtoStore.slice";
-import { Card, CardBody, Image } from "@nextui-org/react";
+import { Card, CardBody, Image } from "@heroui/react";
 import Placeholder from "@tiptap/extension-placeholder";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -20,7 +20,7 @@ import * as _ from "lodash";
 import EditFlashcard from "./Editflashcard";
 const page = () => {
   const { reoderCards, currentReoderCardIndex } = useAppSelector(
-    (state) => state.NewDesk
+    (state) => state.persistedReducer.NewDesk
   );
   const dispatch = useAppDispatch();
 

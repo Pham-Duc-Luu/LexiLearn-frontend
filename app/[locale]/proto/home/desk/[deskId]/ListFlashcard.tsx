@@ -1,7 +1,7 @@
 "use client";
 import { IPreviewFlashcard } from "@/store/Proto-slice/Desk.proto.slice";
 import { useAppSelector } from "@/store/Proto-slice/ProtoStore.slice";
-import { Card, CardBody, Divider, Image } from "@nextui-org/react";
+import { Card, CardBody, Divider, Image } from "@heroui/react";
 import React from "react";
 
 const FlashcardPre = ({ data }: { data: IPreviewFlashcard }) => {

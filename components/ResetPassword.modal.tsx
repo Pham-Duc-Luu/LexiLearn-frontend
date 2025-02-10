@@ -11,7 +11,7 @@ import {
   Input,
   Link,
   Spinner,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { CiMail } from "react-icons/ci";
 import { useTranslations } from "next-intl";
 import {

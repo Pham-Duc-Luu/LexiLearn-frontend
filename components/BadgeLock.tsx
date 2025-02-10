@@ -1,4 +1,4 @@
-import { Badge } from "@nextui-org/react";
+import { Badge } from "@heroui/react";
 import React, { ReactNode } from "react";
 import { FaLock } from "react-icons/fa";
 

@@ -2,24 +2,44 @@
 import { faker } from "@faker-js/faker";
 import { CardType, LayoutGrid } from "./LayoutGrid";
 import React, { useEffect, useState } from "react";
-
+import { useGetDesksQuery } from "@/api/user service/graphql/types.generated";
+import { ToastContainer, toast } from "react-toastify";
 const DeskCardLayoutV2 = () => {
   const [cards, setCard] = useState<CardType[]>([]);
+  const getDesksQuery = useGetDesksQuery({});
+
   useEffect(() => {
-    setCard(
-      Array.from({ length: faker.number.int({ max: 20 }) }, (item, index) => {
-        return {
-          id: index + 1,
-          description: faker.lorem.paragraph(),
-          thumbnail: faker.image.urlPicsumPhotos(),
-          title: faker.music.songName(),
-        };
-      })
-    );
-  }, []);
+    if (getDesksQuery.isSuccess) {
+      const desks = getDesksQuery.data.getDesks;
+      desks?.desks &&
+        desks.desks.length > 0 &&
+        setCard(
+          desks.desks.map((desk) => ({
+            id: Number(desk?.id!),
+            title: desk?.name!,
+            description: desk?.description!,
+            thumbnail: desk?.thumbnail!,
+          }))
+        );
+    }
+  }, [getDesksQuery]);
+
+  useEffect(() => {
+    if (getDesksQuery.isError) {
+      toast("something went wrong", {
+        type: "error",
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
+  }, [getDesksQuery.isError]);
 
   return (
     <div className="flex-1 w-full ">
+      <ToastContainer />
       <LayoutGrid cards={cards} />
     </div>
   );

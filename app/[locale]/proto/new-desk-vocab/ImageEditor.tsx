@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Card, CardHeader, CardFooter, Image, Button } from "@nextui-org/react";
+import { Card, CardHeader, CardFooter, Image, Button } from "@heroui/react";
 import ImageDropZone from "./ImageDropZone";
 const ImageEditor = () => {
   return (

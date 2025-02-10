@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Button, Card, CardBody, CardHeader, Image } from "@nextui-org/react";
+import { Button, Card, CardBody, CardHeader, Image } from "@heroui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { faker } from "@faker-js/faker";

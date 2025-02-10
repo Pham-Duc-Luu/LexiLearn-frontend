@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Button, Card, CardBody, Divider } from "@nextui-org/react";
+import { Button, Card, CardBody, Divider } from "@heroui/react";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { PiDotsNineBold } from "react-icons/pi";
 import {

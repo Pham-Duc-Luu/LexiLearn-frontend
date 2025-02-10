@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Button, Card, Input, InputProps, Link } from "@nextui-org/react";
+import { Button, Card, Input, InputProps, Link } from "@heroui/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { FaGoogle, FaFacebook } from "react-icons/fa";

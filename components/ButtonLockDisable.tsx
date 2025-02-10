@@ -1,4 +1,4 @@
-import { Badge, BadgeProps, Button, ButtonProps } from "@nextui-org/react";
+import { Badge, BadgeProps, Button, ButtonProps } from "@heroui/react";
 import React from "react";
 import { FaLock } from "react-icons/fa";
 

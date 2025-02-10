@@ -1,16 +1,16 @@
 # overwrite: true
-schema: "http://localhost:5000/graphql"
-documents: "./**/*.graphql"
+schema: "http://localhost:5000/user/api/v1/graphql"
+documents: "api/**/*.graphql"
 watchConfig:
   usePolling: true
   interval: 1000
 generates:
-  store/graphql/types.generated.ts:
+  api/user serivce/graphql/types.generated.ts:
     plugins:
       - typescript
     config:
       maybeValue: T # normally, this would be T | null, but our msw mock returns everything as nullable, so we want to force these as non-nullalbe
-  store/graphql/:
+  api/user serivce/graphql/:
     preset: near-operation-file
     presetConfig:
       baseTypesPath: ../types.generated.ts
@@ -32,7 +32,7 @@ generates:
       #     content: "module.hot?.accept();"
       - typescript-operations
       - typescript-rtk-query:
-          importBaseApiFrom: "@/store/graphql/baseApi"
+          importBaseApiFrom: "@/api/user serivce/graphql/baseApi"
           importBaseApiAlternateName: "graphqlApi"
           exportHooks: true
           # overrideExisting: 'module.hot?.status() === "apply"'

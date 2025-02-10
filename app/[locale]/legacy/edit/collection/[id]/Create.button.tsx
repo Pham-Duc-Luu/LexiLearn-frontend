@@ -2,7 +2,7 @@
 import { ToastAction } from "@/components/ui/toast";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/hooks/use-toast";
-import { Button, ButtonProps } from "@nextui-org/react";
+import { Button, ButtonProps } from "@heroui/react";
 import { useTranslations } from "next-intl";
 import React from "react";
 import { MdAddToPhotos } from "react-icons/md";

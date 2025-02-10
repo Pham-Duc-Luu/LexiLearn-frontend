@@ -27,7 +27,9 @@ import {
 import * as _ from "lodash";
 import { setReoderVocabCard } from "@/store/Proto-slice/newDesk.slice";
 export default function DndGroup() {
-  const { reoderCards } = useAppSelector((state) => state.NewDesk);
+  const { reoderCards } = useAppSelector(
+    (state) => state.persistedReducer.NewDesk
+  );
   const dispatch = useAppDispatch();
   const sensors = useSensors(
     useSensor(PointerSensor),

@@ -11,7 +11,7 @@ import {
   ModalHeader,
   Spinner,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useTranslations } from "next-intl";
 import React from "react";
 import { IoIosAdd, IoMdAdd } from "react-icons/io";

@@ -4,8 +4,8 @@ import { File, Trash2, Upload } from "lucide-react";
 import type React from "react";
 import { type DragEvent, useRef, useState } from "react";
 import { RiImageAddLine } from "react-icons/ri";
-import { Image } from "@nextui-org/image";
-import { Button, Card, CardFooter } from "@nextui-org/react";
+import { Image } from "@heroui/image";
+import { Button, Card, CardFooter } from "@heroui/react";
 import { MdDeleteOutline } from "react-icons/md";
 interface FileWithPreview extends File {
   preview: string;

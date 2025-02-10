@@ -9,7 +9,7 @@ import {
   NavbarContent,
   Textarea,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import React from "react";
 import { IoCaretBack } from "react-icons/io5";
 import { MdArrowBackIos, MdOutlineImage } from "react-icons/md";
@@ -20,7 +20,7 @@ import {
   ModalBody,
   ModalFooter,
   Input,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { FiEdit } from "react-icons/fi";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";

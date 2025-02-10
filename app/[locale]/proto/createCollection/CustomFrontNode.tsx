@@ -18,14 +18,14 @@ import {
   Button,
   Divider,
   Input,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { FaRegPlayCircle } from "react-icons/fa";
 import {
   Dropdown,
   DropdownMenu,
   DropdownTrigger,
   DropdownItem,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { IoAdd } from "react-icons/io5";
 import { useMeasure } from "@/hooks/use-measure";
 

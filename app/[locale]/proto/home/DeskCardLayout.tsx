@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { Card, CardFooter, Image, Button, CardBody } from "@nextui-org/react";
+import { Card, CardFooter, Image, Button, CardBody } from "@heroui/react";
 import React from "react";
 
 const DeskCardLayout = () => {

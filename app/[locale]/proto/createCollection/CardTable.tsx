@@ -9,7 +9,7 @@ import {
   TableCell,
   getKeyValue,
   TableProps,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { cn } from "@/lib/utils";
 // * define what will be displayed on the column
 interface IColumnsType {

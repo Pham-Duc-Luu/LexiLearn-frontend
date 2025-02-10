@@ -6,7 +6,7 @@ import {
   CardHeader,
   Divider,
   Input,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { DragControls, Reorder, useDragControls } from "framer-motion";
 import { useTranslations } from "next-intl";
 

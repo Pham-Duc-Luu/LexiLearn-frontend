@@ -11,7 +11,7 @@ import {
   CardHeader,
   Divider,
   Image,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { SlOptionsVertical } from "react-icons/sl";
 import { BiCopy, BiLike, BiShareAlt, BiSolidLike } from "react-icons/bi";
 import { faker } from "@faker-js/faker";
@@ -39,16 +39,7 @@ export const LayoutGrid = ({ cards }: { cards: CardType[] }) => {
     setLastSelected(selected);
     setSelected(null);
   };
-  // const [cards, setCard] = useState(
-  //   Array.from({ length: 30 }, (item, index) => {
-  //     return {
-  //       id: index + 1,
-  //       content: <SkeletonOne />,
-  //       className: "md:col-span-1",
-  //       thumbnail: faker.image.urlPicsumPhotos(),
-  //     };
-  //   })
-  // );
+
   return (
     <div className=" grid lg:grid-cols-12 grid-cols-4 md:grid-cols-8  gap-6 p-10 ">
       {cards?.map((card, i) => (
@@ -112,14 +103,20 @@ export const LayoutGrid = ({ cards }: { cards: CardType[] }) => {
     </div>
   );
 };
+interface IAvatarUserCardProps {
+  avatar: string;
+  name: string;
+}
 
-const AvatarUserCard = () => {
+const AvatarUserCard = ({ avatar, name }: IAvatarUserCardProps) => {
+  // TODO: handler call api for user's avatar and name when the desk is showing up
+
   return (
     <div className=" flex gap-4 ">
-      <Avatar isBordered={true} src={faker.image.urlPicsumPhotos()}></Avatar>
+      <Avatar isBordered={true} src={avatar}></Avatar>
       <div className=" flex flex-col justify-start items-start">
         <p className=" text-sm font-thin"> create by</p>
-        <span className=" font-bold">{faker.person.fullName()}</span>
+        <span className=" font-bold">{name}</span>
       </div>
     </div>
   );

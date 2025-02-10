@@ -8,7 +8,7 @@ import {
   Divider,
   Image,
   Input,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import React, { useState } from "react";
 import backgroudImage from "@/public/sign in backgroud.jpg";
 import { FcGoogle } from "react-icons/fc";

@@ -1,0 +1,33 @@
+query GetUserDesks {
+  getUserDesks {
+    total
+    skip
+    limit
+    desks {
+      ownerId
+      isPublic
+    }
+  }
+  getDesks {
+    total
+    skip
+    limit
+  }
+}
+
+query getDesks($skip: Int = 0, $limit: Int = 30) {
+  getDesks(skip: $skip, limit: $limit) {
+    total
+    skip
+    limit
+    desks {
+      id
+      name
+      description
+      icon
+      isPublic
+      ownerId
+      thumbnail
+    }
+  }
+}

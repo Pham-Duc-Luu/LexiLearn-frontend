@@ -1,7 +1,7 @@
 "use client";
 import PressableButton from "@/components/PressableButton";
 import { useAppSelector } from "@/store/Proto-slice/ProtoStore.slice";
-import { Avatar, Button, Card, CardBody, Chip, Image } from "@nextui-org/react";
+import { Avatar, Button, Card, CardBody, Chip, Image } from "@heroui/react";
 import React from "react";
 import { BsSave2 } from "react-icons/bs";
 import { FaRegClone } from "react-icons/fa";

@@ -12,7 +12,7 @@ import {
   Tab,
   Card,
   CardBody,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { File, Trash2, Upload } from "lucide-react";
 import type React from "react";

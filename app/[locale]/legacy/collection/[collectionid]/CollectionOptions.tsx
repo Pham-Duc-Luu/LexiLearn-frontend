@@ -1,6 +1,6 @@
 import BadgeLock from "@/components/BadgeLock";
 import { cn } from "@/lib/utils";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import React from "react";
 import { CiSettings } from "react-icons/ci";
 import { AiOutlineEdit } from "react-icons/ai";

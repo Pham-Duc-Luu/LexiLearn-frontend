@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Card, CardBody, CardProps } from "@nextui-org/react";
+import { Card, CardBody, CardProps } from "@heroui/react";
 import React from "react";
 
 const DropDrowRecommend = ({

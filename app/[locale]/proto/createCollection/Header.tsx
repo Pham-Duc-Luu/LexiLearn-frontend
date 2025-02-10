@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { Input } from "@nextui-org/react";
+import { Input } from "@heroui/react";
 import React from "react";
 
 interface HeaderProps {

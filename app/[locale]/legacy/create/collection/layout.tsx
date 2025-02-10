@@ -1,5 +1,5 @@
 import SideBar from '@/components/SideBar';
-import { Button, Navbar } from '@nextui-org/react';
+import { Button, Navbar } from "@heroui/react";
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { MdAddToPhotos } from 'react-icons/md';

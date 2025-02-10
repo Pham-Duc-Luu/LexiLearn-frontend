@@ -1,6 +1,6 @@
 "use client";
 import { useToast } from "@/hooks/use-toast";
-import { Badge, Button, Card, CardFooter, CardHeader } from "@nextui-org/react";
+import { Badge, Button, Card, CardFooter, CardHeader } from "@heroui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { File, Trash2, Upload } from "lucide-react";
 import type React from "react";

@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { Button, ButtonProps } from "@nextui-org/react";
+import { Button, ButtonProps } from "@heroui/react";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 const PressableButton = ({ className, ...props }: ButtonProps) => {

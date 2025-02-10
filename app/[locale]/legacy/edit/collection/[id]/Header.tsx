@@ -9,7 +9,7 @@ import {
   Input,
   Navbar,
   Spinner,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
