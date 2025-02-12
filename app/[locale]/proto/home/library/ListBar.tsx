@@ -37,6 +37,9 @@ import { PaginationItemType } from "@heroui/react";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { IoTrashBin, IoTrashBinOutline } from "react-icons/io5";
 import { cn } from "@/lib/utils";
+import { useGetUserDesksQuery } from "@/api/user service/graphql/user.graphql.api";
+import { useRouter } from "@/i18n/routing";
+import { routeProto } from "@/store/legacy store/route.slice";
 
 const renderItem = ({
   ref,
@@ -46,7 +49,6 @@ const renderItem = ({
   onNext,
   onPrevious,
   setPage,
-
   className,
 }: PaginationItemRenderProps) => {
   if (value === PaginationItemType.NEXT) {
@@ -101,6 +103,10 @@ const ListBar = () => {
   const { libraryList } = useAppSelector(
     (state) => state.persistedReducer.LibraryPage
   );
+
+  const getUserDesks = useGetUserDesksQuery({});
+  const route = useRouter();
+
   return (
     <div className=" col-span-9 p-4 h-full overflow-y-scroll">
       <Input
@@ -229,8 +235,11 @@ const ListBar = () => {
           );
         })}
       </div>
-      <div className=" w-full  flex justify-center p-4">
+      {/* <div className=" w-full  flex justify-center p-4">
         <Pagination
+          onChange={(e) => {
+            route(routeProto.LIBRARY("all", e));
+          }}
           showControls
           className="gap-2 "
           initialPage={1}
@@ -242,7 +251,7 @@ const ListBar = () => {
           total={10}
           variant="light"
         />
-      </div>
+      </div> */}
     </div>
   );
 };

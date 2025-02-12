@@ -18,13 +18,18 @@ export type Scalars = {
 
 export type Desk = {
   __typename?: 'Desk';
+  createdAt?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  flashcardQuantity?: Maybe<Scalars['Int']['output']>;
   icon?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   isPublic?: Maybe<Scalars['Boolean']['output']>;
   name?: Maybe<Scalars['String']['output']>;
+  owner?: Maybe<User>;
   ownerId?: Maybe<Scalars['ID']['output']>;
+  status?: Maybe<DeskStatus>;
   thumbnail?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['String']['output']>;
 };
 
 export type DeskPaginationResult = {
@@ -34,6 +39,28 @@ export type DeskPaginationResult = {
   skip?: Maybe<Scalars['Int']['output']>;
   total?: Maybe<Scalars['Int']['output']>;
 };
+
+export type DeskQueryFilter = {
+  isPublic?: InputMaybe<Scalars['Boolean']['input']>;
+  status?: InputMaybe<DeskStatus>;
+};
+
+export type DeskQuerySort = {
+  field?: InputMaybe<DeskSortField>;
+  order?: InputMaybe<SortOrder>;
+};
+
+export enum DeskSortField {
+  CreatedAt = 'createdAt',
+  Name = 'name',
+  UpdatedAt = 'updatedAt'
+}
+
+export enum DeskStatus {
+  Bin = 'BIN',
+  Drafted = 'DRAFTED',
+  Published = 'PUBLISHED'
+}
 
 export enum ErrorDetail {
   /**
@@ -315,6 +342,7 @@ export type QueryGetDeskArgs = {
 export type QueryGetDesksArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<DeskQuerySort>;
 };
 
 
@@ -331,8 +359,10 @@ export type QueryGetUserDeskArgs = {
 
 
 export type QueryGetUserDesksArgs = {
+  filter?: InputMaybe<DeskQueryFilter>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<DeskQuerySort>;
 };
 
 export type Sm = {
@@ -344,6 +374,11 @@ export type Sm = {
   name?: Maybe<Scalars['String']['output']>;
   nextDay?: Maybe<Scalars['String']['output']>;
 };
+
+export enum SortOrder {
+  Asc = 'ASC',
+  Desc = 'DESC'
+}
 
 export type User = {
   __typename?: 'User';
@@ -360,10 +395,14 @@ export type _Service = {
   sdl: Scalars['String']['output'];
 };
 
-export type GetUserDesksQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetUserDesksQueryVariables = Exact<{
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  filter?: InputMaybe<DeskQueryFilter>;
+}>;
 
 
-export type GetUserDesksQuery = { __typename?: 'Query', getUserDesks?: { __typename?: 'DeskPaginationResult', total?: number | null, skip?: number | null, limit?: number | null, desks?: Array<{ __typename?: 'Desk', ownerId?: string | null, isPublic?: boolean | null } | null> | null } | null, getDesks?: { __typename?: 'DeskPaginationResult', total?: number | null, skip?: number | null, limit?: number | null } | null };
+export type GetUserDesksQuery = { __typename?: 'Query', getUserDesks?: { __typename?: 'DeskPaginationResult', total?: number | null, skip?: number | null, limit?: number | null, desks?: Array<{ __typename?: 'Desk', id: string, name?: string | null, description?: string | null, icon?: string | null, isPublic?: boolean | null, ownerId?: string | null, thumbnail?: string | null, status?: DeskStatus | null, createdAt?: string | null, updatedAt?: string | null, flashcardQuantity?: number | null } | null> | null } | null };
 
 export type GetDesksQueryVariables = Exact<{
   skip?: InputMaybe<Scalars['Int']['input']>;
@@ -371,24 +410,28 @@ export type GetDesksQueryVariables = Exact<{
 }>;
 
 
-export type GetDesksQuery = { __typename?: 'Query', getDesks?: { __typename?: 'DeskPaginationResult', total?: number | null, skip?: number | null, limit?: number | null, desks?: Array<{ __typename?: 'Desk', id: string, name?: string | null, description?: string | null, icon?: string | null, isPublic?: boolean | null, ownerId?: string | null, thumbnail?: string | null } | null> | null } | null };
+export type GetDesksQuery = { __typename?: 'Query', getDesks?: { __typename?: 'DeskPaginationResult', total?: number | null, skip?: number | null, limit?: number | null, desks?: Array<{ __typename?: 'Desk', id: string, name?: string | null, description?: string | null, icon?: string | null, isPublic?: boolean | null, thumbnail?: string | null, flashcardQuantity?: number | null, owner?: { __typename?: 'User', id: string, name?: string | null, email?: string | null, avatar?: string | null, thumbnail?: string | null } | null } | null> | null } | null };
 
 
 export const GetUserDesksDocument = `
-    query GetUserDesks {
-  getUserDesks {
+    query GetUserDesks($skip: Int = 0, $limit: Int = 30, $filter: DeskQueryFilter) {
+  getUserDesks(skip: $skip, limit: $limit, filter: $filter) {
     total
     skip
     limit
     desks {
-      ownerId
+      id
+      name
+      description
+      icon
       isPublic
+      ownerId
+      thumbnail
+      status
+      createdAt
+      updatedAt
+      flashcardQuantity
     }
-  }
-  getDesks {
-    total
-    skip
-    limit
   }
 }
     `;
@@ -404,8 +447,15 @@ export const GetDesksDocument = `
       description
       icon
       isPublic
-      ownerId
       thumbnail
+      owner {
+        id
+        name
+        email
+        avatar
+        thumbnail
+      }
+      flashcardQuantity
     }
   }
 }

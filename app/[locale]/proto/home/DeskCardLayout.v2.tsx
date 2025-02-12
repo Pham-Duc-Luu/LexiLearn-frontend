@@ -19,6 +19,12 @@ const DeskCardLayoutV2 = () => {
             title: desk?.name!,
             description: desk?.description!,
             thumbnail: desk?.thumbnail!,
+            owner: {
+              id: desk?.owner?.id!,
+              name: desk?.owner?.name!,
+              avatar: desk?.owner?.avatar!,
+            },
+            flashcardQuantity: desk?.flashcardQuantity!,
           }))
         );
     }
@@ -35,7 +41,7 @@ const DeskCardLayoutV2 = () => {
         pauseOnHover: true,
       });
     }
-  }, [getDesksQuery.isError]);
+  }, [getDesksQuery, getDesksQuery.isError]);
 
   return (
     <div className="flex-1 w-full ">

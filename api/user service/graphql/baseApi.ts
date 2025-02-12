@@ -1,10 +1,18 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import qs from "qs";
 import { graphqlRequestBaseQuery } from "@rtk-query/graphql-request-base-query";
-import { GraphQLClient } from "graphql-request";
+import { GraphQLClient, ClientError } from "graphql-request";
 import { Mutex } from "async-mutex";
 import { RootState } from "@/store/Proto-slice/ProtoStore.slice";
 import { BaseQueryFn } from "@reduxjs/toolkit/query";
+import { GraphqlErrorResponse } from "@/api/dto/graphql-dto";
+import Cookies from "js-cookie";
+import axios, { AxiosError } from "axios";
+import { AuthResponseDto } from "@/api/dto";
+import {
+  setAccessToken,
+  setIsAuthenticatedError,
+} from "@/store/Proto-slice/Auth.proto.slice";
 
 // export const graphqlApi = createApi({
 //     reducerPath: "api/graphql",
@@ -23,11 +31,6 @@ export const client = new GraphQLClient(
 );
 
 const mutex = new Mutex();
-
-// * define authentication endpoint
-const authBaseQuery = fetchBaseQuery({
-  baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL || "localhost",
-});
 
 const graphqlBaseQuery = graphqlRequestBaseQuery({
   client,
@@ -52,7 +55,94 @@ export const baseQueryWithReauthGraphql: BaseQueryFn = async (
   try {
     result = await graphqlBaseQuery({ document, variables }, api, extraOptions);
 
-    const errors = result.meta;
+    const { meta } = result as any;
+    let error;
+
+    if (meta?.response?.errors) {
+      const errors = meta.response?.errors as GraphqlErrorResponse[];
+      errors.length > 0 &&
+        errors.forEach(async (e) => {
+          // Intercept HTTP 401 responses and do the refresh token call
+          if (
+            e?.extensions?.debugInfo?.errorDetails?.status &&
+            e.extensions.debugInfo.errorDetails.status === 401
+          ) {
+            console.log(e);
+            // Even if multiple apis fail simultaneously with 401
+            // only allow one api call to refresh the token
+            if (!mutex.isLocked()) {
+              const release = await mutex.acquire();
+              try {
+                const { access_token } = (api.getState() as RootState)
+                  .persistedReducer.auth;
+                // Use the proper refresh token request format here
+                const headers = {
+                  "x-api-key":
+                    process.env.NEXT_PUBLIC_API_KEY || "default-api-key",
+                };
+
+                try {
+                  const refreshResult = await axios<AuthResponseDto>({
+                    url:
+                      process.env.NEXT_PUBLIC_API_BASE_URL +
+                      "/user/api/v1/refresh-token",
+                    withCredentials: true,
+                    method: "POST",
+                    data: {
+                      refresh_token: Cookies.get("refresh_token"),
+                      access_token: access_token,
+                    },
+                    headers: {
+                      ...headers,
+                      Authorization: access_token
+                        ? `Bearer ${access_token}`
+                        : "", // Add token here
+                    },
+                  });
+
+                  // TODO : Dispatch the updated token information
+                  // store the new token
+                  api?.dispatch(
+                    setAccessToken(refreshResult.data.access_token)
+                  );
+                  // Once the tokens are updated, do the failed api call again
+                  result = await graphqlBaseQuery(
+                    { document, variables },
+                    api,
+                    extraOptions
+                  );
+                } catch (error) {
+                  // dispatch(loggedOut());
+                  const err = error as AxiosError;
+                  console.log(err);
+
+                  if (err.status === 401) {
+                    console.log(err);
+                    api.dispatch(setIsAuthenticatedError(true));
+                  }
+                  error = {
+                    status: err.response?.status,
+                    data: err.response?.data || err.message,
+                  };
+                }
+              } finally {
+                release();
+              }
+            } else {
+              await mutex.waitForUnlock();
+              result = await graphqlBaseQuery(
+                { document, variables },
+                api,
+                extraOptions
+              );
+            }
+          }
+        });
+    }
+
+    if (error) {
+      return error;
+    }
 
     return result;
   } catch (e: any) {

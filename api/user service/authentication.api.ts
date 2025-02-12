@@ -13,7 +13,10 @@ import { authenticationInstance } from "../config/axios";
 import Cookies from "js-cookie";
 import { AxiosError, AxiosResponse } from "axios";
 import { RootState } from "@/store/Proto-slice/ProtoStore.slice";
-import { setAccessToken } from "@/store/Proto-slice/Auth.proto.slice";
+import {
+  setAccessToken,
+  setIsAuthenticatedError,
+} from "@/store/Proto-slice/Auth.proto.slice";
 // Define an API slice
 export const authApi = createApi({
   reducerPath: "authApi", // Unique key for the slice
@@ -41,6 +44,7 @@ export const authApi = createApi({
           const { dispatch } = queryApi;
 
           dispatch(setAccessToken(res.data.access_token));
+          dispatch(setIsAuthenticatedError(false));
           Cookies.set("refresh_token", res.data.refresh_token, {
             expires: 7,
             secure: true,
@@ -84,6 +88,7 @@ export const authApi = createApi({
 
           // * save access toke to the local storage in redux
           dispatch(setAccessToken(res.data.access_token));
+          dispatch(setIsAuthenticatedError(false));
 
           // IMPORTANT : save refresh token in cookie
           Cookies.set("refresh_token", res.data.refresh_token, {
@@ -194,6 +199,7 @@ export const authApi = createApi({
 
           // * save access toke to the local storage in redux
           dispatch(setAccessToken(res.data.access_token));
+          dispatch(setIsAuthenticatedError(false));
 
           // IMPORTANT : save refresh token in cookie
           Cookies.set("refresh_token", res.data.refresh_token, {

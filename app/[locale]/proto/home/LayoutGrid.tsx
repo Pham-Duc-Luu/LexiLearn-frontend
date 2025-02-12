@@ -15,13 +15,15 @@ import {
 import { SlOptionsVertical } from "react-icons/sl";
 import { BiCopy, BiLike, BiShareAlt, BiSolidLike } from "react-icons/bi";
 import { faker } from "@faker-js/faker";
+import { UserProfileMetadata } from "@/api/dto/user-dto";
 
 export type CardType = {
   id: number;
   title: string;
   description: string;
-
   thumbnail: string;
+  owner?: Partial<UserProfileMetadata>;
+  flashcardQuantity?: number;
 };
 
 export const LayoutGrid = ({ cards }: { cards: CardType[] }) => {
@@ -174,17 +176,16 @@ const SelectedCard = ({ selected }: { selected: CardType | null }) => {
             />
           </div>
           <CardBody className=" ">
-            <AvatarUserCard></AvatarUserCard>
+            <AvatarUserCard
+              avatar={selected?.owner?.avatar!}
+              name={selected?.owner?.name!}
+            ></AvatarUserCard>
             <div className=" pt-4">
               <h1 className=" font-bold">{selected?.title}</h1>
               <h1>{selected?.description}</h1>
-              <span className=" font-light text-sm">{`${faker.number.int({
-                min: 20,
-                max: 100,
-              })} vocabularys • ${faker.number.int({
-                min: 20,
-                max: 100,
-              })} flashcards`}</span>
+              <span className=" font-light text-sm">{`
+              
+              ${selected?.flashcardQuantity!} flashcards`}</span>
             </div>
           </CardBody>
           <Divider></Divider>

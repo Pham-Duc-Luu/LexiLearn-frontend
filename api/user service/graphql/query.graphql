@@ -1,17 +1,21 @@
-query GetUserDesks {
-  getUserDesks {
+query GetUserDesks($skip: Int = 0, $limit: Int = 30, $filter: DeskQueryFilter) {
+  getUserDesks(skip: $skip, limit: $limit, filter: $filter) {
     total
     skip
     limit
     desks {
-      ownerId
+      id
+      name
+      description
+      icon
       isPublic
+      ownerId
+      thumbnail
+      status
+      createdAt
+      updatedAt
+      flashcardQuantity
     }
-  }
-  getDesks {
-    total
-    skip
-    limit
   }
 }
 
@@ -26,8 +30,15 @@ query getDesks($skip: Int = 0, $limit: Int = 30) {
       description
       icon
       isPublic
-      ownerId
       thumbnail
+      owner {
+        id
+        name
+        email
+        avatar
+        thumbnail
+      }
+      flashcardQuantity
     }
   }
 }

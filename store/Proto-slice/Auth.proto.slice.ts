@@ -4,6 +4,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 export interface IAuthState {
   access_token?: string;
   refresh_token?: string;
+  isAuthenticatedError?: boolean;
 }
 
 const initAuthState: IAuthState = {};
@@ -18,6 +19,9 @@ export const authSlice = createSlice({
     setRefreshToken: (state, action: PayloadAction<string>) => {
       state.refresh_token = action.payload;
     },
+    setIsAuthenticatedError: (state, action: PayloadAction<boolean>) => {
+      state.isAuthenticatedError = action.payload;
+    },
     loggedOut: (state) => {
       state.access_token = undefined;
       state.refresh_token = undefined;
@@ -25,6 +29,11 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setAccessToken, setRefreshToken, loggedOut } = authSlice.actions;
+export const {
+  setAccessToken,
+  setRefreshToken,
+  loggedOut,
+  setIsAuthenticatedError,
+} = authSlice.actions;
 
 export default authSlice.reducer;

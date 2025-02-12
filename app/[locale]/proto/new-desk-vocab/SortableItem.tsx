@@ -34,7 +34,7 @@ export function SortableItem({
     transition,
   };
   const { currentReoderCardIndex, reoderCards } = useAppSelector(
-    (state) => state.NewDesk
+    (state) => state.persistedReducer.NewDesk
   );
 
   const dispatch = useAppDispatch();

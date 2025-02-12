@@ -1,3 +1,4 @@
+"use client";
 import { faker } from "@faker-js/faker";
 import { Button } from "@heroui/react";
 import React from "react";
