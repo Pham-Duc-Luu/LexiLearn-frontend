@@ -12,7 +12,7 @@ const InforBar = () => {
       <div className=" my-3 flex w-full flex-col gap-4">
         <Button
           startContent={<MdAutorenew />}
-          endContent={<div>{faker.number.int({ max: 100 })}</div>}
+          endContent={<div>0</div>}
           className=" w-full flex justify-start rounded-sm"
           variant="flat"
         >
@@ -20,7 +20,7 @@ const InforBar = () => {
         </Button>
         <Button
           startContent={<AiOutlineLike />}
-          endContent={<div>{faker.number.int({ max: 100 })}</div>}
+          endContent={<div>0</div>}
           className=" w-full flex justify-start rounded-sm"
           variant="flat"
         >

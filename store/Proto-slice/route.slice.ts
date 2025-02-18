@@ -13,12 +13,17 @@ export const routeState = {
   AUTH_FORGOTPASSWORD: () => `/auth/forgot-password`,
 };
 
+export interface URLParameterType {
+  status: LibraryRouteStatusType;
+  page: string;
+}
+
 export type LibraryRouteStatusType = "all" | "drafted" | "published" | "bin";
 
 export const routeProto = {
   HOME: () => `/proto/home`,
   AUTH: () => `/proto/auth`,
-  DESK_EDIT: () => `/proto/new-desk-vocab`,
+  CREATE_NEW_DESK: () => `/proto/new-desk-vocab`,
   REVIEW_FLASHCARD: () => `/proto/review/flashcard`,
   LIBRARY: (status: LibraryRouteStatusType = "all", page: number = 1) =>
     `/proto/home/library/${status}/${page}`,
@@ -28,7 +33,7 @@ export const routeProto = {
       : `/proto/home/profile`,
 };
 
-const {
+export const {
   DASHBOARD_ROUTE,
   COLLECTION_DETAILS,
   COLLECTION_FINISH,

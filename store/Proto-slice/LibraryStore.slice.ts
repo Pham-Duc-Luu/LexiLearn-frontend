@@ -1,5 +1,10 @@
+import {
+  Desk,
+  GetDesksQuery,
+  GetUserDesksQuery,
+} from "@/api/user service/graphql/types.generated";
 import { faker } from "@faker-js/faker";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface LibraryListItem {
   thumbnailUrl: string;
@@ -11,34 +16,32 @@ interface LibraryListItem {
     avatarUrl: string;
   };
   publicDate: string;
+  createdAt?: Desk["createdAt"];
 }
 
 interface LibraryListProps {
-  libraryList: LibraryListItem[];
+  libraryList: (Desk | null)[];
+  deskLimit: number;
 }
 
 const initialState: LibraryListProps = {
-  libraryList: Array.from({ length: 10 }, (_, i) => {
-    return {
-      thumbnailUrl: faker.image.urlPicsumPhotos(),
-      name: faker.book.title(),
-      numberOfWords: faker.number.int({ min: 100, max: 1000 }),
-      numberOfFlashcards: faker.number.int({ min: 50, max: 500 }),
-      author: {
-        name: faker.book.author(),
-        avatarUrl: faker.image.avatar(),
-      },
-      publicDate: faker.date.anytime().toString(),
-    };
-  }),
+  libraryList: [],
+  deskLimit: 20,
 };
 
 export const LibrarySlice = createSlice({
   initialState,
   name: "library",
-  reducers: {},
+  reducers: {
+    setLibraryList: (
+      state,
+      payload: PayloadAction<LibraryListProps["libraryList"]>
+    ) => {
+      state.libraryList = payload.payload;
+    },
+  },
 });
 
-export const {} = LibrarySlice.actions;
+export const { setLibraryList } = LibrarySlice.actions;
 
 export default LibrarySlice.reducer;

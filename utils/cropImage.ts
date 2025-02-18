@@ -1,3 +1,5 @@
+import { Area } from "react-easy-crop";
+
 export const createImage = (url: string) =>
   new Promise((resolve, reject) => {
     const image = new Image();
@@ -30,7 +32,7 @@ export function rotateSize(width: number, height: number, rotation: number) {
  */
 export default async function getCroppedImg(
   imageSrc: string,
-  pixelCrop,
+  pixelCrop: Area,
   rotation = 0,
   flip = { horizontal: false, vertical: false }
 ) {

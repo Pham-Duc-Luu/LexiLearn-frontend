@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Card, CardHeader, CardFooter, Image, Button } from "@heroui/react";
-import ImageDropZone from "./ImageDropZone";
+import ImageDropZone from "../_component/ImageDropZone";
 const ImageEditor = () => {
   return (
     <>

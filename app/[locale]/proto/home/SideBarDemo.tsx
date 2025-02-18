@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import {
   MdAdd,
@@ -17,10 +17,109 @@ import {
   SideBarItemButon,
 } from "@/components/aceternity/sidebar";
 import { useAppSelector } from "@/store/Proto-slice/ProtoStore.slice";
-import { Divider } from "@heroui/react";
-import { routeProto } from "@/store/legacy store/route.slice";
+import { Button, Divider, UseDisclosureProps } from "@heroui/react";
 import { usePathname, useRouter } from "@/i18n/routing";
 
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+} from "@heroui/modal";
+import { CiLock } from "react-icons/ci";
+import { routeProto } from "@/store/Proto-slice/route.slice";
+
+export function PrecreateNewComponent({
+  link,
+  setselectButton,
+  selectButton,
+  idx,
+}: Parameters<typeof SideBarItemButon>[0] & {
+  link: SideBarButton;
+  setselectButton: React.Dispatch<React.SetStateAction<string | undefined>>;
+  idx: string | number;
+
+  selectButton: React.SetStateAction<string | undefined>;
+}) {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const route = useRouter();
+  return (
+    <>
+      <SideBarItemButon
+        onClick={() => {
+          // link.href && route.push(link.href);
+          setselectButton(link.label);
+          onOpen();
+        }}
+        className={selectButton === link.label ? "bg-color-4/40" : ""}
+        key={idx}
+        button={{
+          ...link,
+          icon: selectButton === link.label ? link.iconFill : link.iconLine,
+        }}
+        variant="light"
+        {...link.buttonProps}
+      />
+      <Modal
+        className=" rounded-sm"
+        isOpen={isOpen}
+        size="5xl"
+        onOpenChange={onOpenChange}
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Mhat do you want to create today?
+              </ModalHeader>
+              <ModalBody className=" m-4 gap-6 flex flex-col">
+                <Button
+                  onPress={() =>
+                    // * redirect to create new desk page
+                    route.push(routeProto.CREATE_NEW_DESK())
+                  }
+                  className=" w-full h-20 text-2xl rounded-sm  bg-color-4/20 border-color-4 border-x-4 border-t-4 border-b-8"
+                  variant="light"
+                >
+                  create new desk
+                </Button>
+                <Button
+                  endContent={<CiLock />}
+                  isDisabled={true}
+                  className=" w-full h-20 text-2xl rounded-sm  border-color-3 bg-color-3/20 border-x-4 border-t-4 border-b-8"
+                  variant="light"
+                >
+                  create new document
+                </Button>
+                <Button
+                  endContent={<CiLock />}
+                  disabled={true}
+                  isDisabled={true}
+                  className=" w-full h-20 text-2xl rounded-sm  border-color-2 bg-color-2/20 border-x-4 border-t-4 border-b-8"
+                  variant="light"
+                >
+                  create new slide
+                </Button>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  color="warning"
+                  variant="bordered"
+                  className=" rounded-md"
+                  onPress={onClose}
+                >
+                  cancal
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+    </>
+  );
+}
 export function SidebarDemo({ children }: { children: React.ReactNode }) {
   const topSideBar: SideBarButton[] = [
     {
@@ -66,7 +165,6 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
           className="text-neutral-700 dark:text-neutral-200  flex-shrink-0"
         />
       ),
-      href: routeProto.DESK_EDIT(),
 
       iconFill: (
         <MdAdd
@@ -125,66 +223,99 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
   }, [path, route]);
 
   return (
-    <div
-      className={cn(
-        "rounded-md flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 w-full flex-1 mx-auto border border-neutral-200 dark:border-neutral-700 overflow-hidden",
-        "flex-1" // for your use case, use `h-screen` instead of `h-[60vh]`
-      )}
-    >
-      <div>
-        <Sidebar open={sidebar.isOpen}>
-          <SidebarBody className="justify-between gap-10">
-            <div className="flex flex-col flex-1 justify-between overflow-y-auto overflow-x-hidden">
-              <div className=" flex flex-col gap-4 ">
-                {topSideBar.map((link, idx) => (
-                  <SideBarItemButon
-                    onClick={() => {
-                      link.href && route.push(link.href);
-                      setselectButton(link.label);
-                    }}
-                    className={
-                      selectButton === link.label ? "bg-color-4/40" : ""
+    <>
+      <div
+        className={cn(
+          "rounded-md flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 w-full flex-1 mx-auto border border-neutral-200 dark:border-neutral-700 overflow-hidden",
+          "flex-1" // for your use case, use `h-screen` instead of `h-[60vh]`
+        )}
+      >
+        <div>
+          <Sidebar open={sidebar.isOpen}>
+            <SidebarBody className="justify-between gap-10">
+              <div className="flex flex-col flex-1 justify-between overflow-y-auto overflow-x-hidden">
+                <div className=" flex flex-col gap-4 ">
+                  {topSideBar.map((link, idx) => {
+                    if (link.label === "Add") {
+                      return (
+                        <PrecreateNewComponent
+                          link={link}
+                          idx={idx}
+                          selectButton={selectButton}
+                          setselectButton={setselectButton}
+                          onClick={() => {
+                            link.href && route.push(link.href);
+                            setselectButton(link.label);
+                          }}
+                          className={
+                            selectButton === link.label ? "bg-color-4/40" : ""
+                          }
+                          key={idx}
+                          button={{
+                            ...link,
+                            icon:
+                              selectButton === link.label
+                                ? link.iconFill
+                                : link.iconLine,
+                          }}
+                          variant="light"
+                          {...link.buttonProps}
+                        ></PrecreateNewComponent>
+                      );
                     }
-                    key={idx}
-                    button={{
-                      ...link,
-                      icon:
-                        selectButton === link.label
-                          ? link.iconFill
-                          : link.iconLine,
-                    }}
-                    variant="light"
-                  />
-                ))}
+
+                    return (
+                      <SideBarItemButon
+                        onClick={() => {
+                          link.href && route.push(link.href);
+                          setselectButton(link.label);
+                        }}
+                        className={
+                          selectButton === link.label ? "bg-color-4/40" : ""
+                        }
+                        key={idx}
+                        button={{
+                          ...link,
+                          icon:
+                            selectButton === link.label
+                              ? link.iconFill
+                              : link.iconLine,
+                        }}
+                        variant="light"
+                        {...link.buttonProps}
+                      />
+                    );
+                  })}
+                </div>
+                <div className=" flex flex-col ">
+                  {bottomSideBar.map((link, idx) => (
+                    <SideBarItemButon
+                      onClick={() => setselectButton(link.label)}
+                      className={
+                        selectButton === link.label ? "bg-color-4/40" : ""
+                      }
+                      key={idx}
+                      button={{
+                        ...link,
+                        icon:
+                          selectButton === link.label
+                            ? link.iconFill
+                            : link.iconLine,
+                      }}
+                      variant="light"
+                    />
+                  ))}
+                </div>
               </div>
-              <div className=" flex flex-col ">
-                {bottomSideBar.map((link, idx) => (
-                  <SideBarItemButon
-                    onClick={() => setselectButton(link.label)}
-                    className={
-                      selectButton === link.label ? "bg-color-4/40" : ""
-                    }
-                    key={idx}
-                    button={{
-                      ...link,
-                      icon:
-                        selectButton === link.label
-                          ? link.iconFill
-                          : link.iconLine,
-                    }}
-                    variant="light"
-                  />
-                ))}
-              </div>
-            </div>
-          </SidebarBody>
-        </Sidebar>
+            </SidebarBody>
+          </Sidebar>
+        </div>
+        {/* <Dashboard /> */}
+        <div>
+          <Divider orientation="vertical" className=" h-full"></Divider>
+        </div>
+        <>{children}</>
       </div>
-      {/* <Dashboard /> */}
-      <div>
-        <Divider orientation="vertical" className=" h-full"></Divider>
-      </div>
-      <>{children}</>
-    </div>
+    </>
   );
 }

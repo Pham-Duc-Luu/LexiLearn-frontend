@@ -85,7 +85,7 @@ export const baseQueryWithReauthGraphql: BaseQueryFn = async (
                   const refreshResult = await axios<AuthResponseDto>({
                     url:
                       process.env.NEXT_PUBLIC_API_BASE_URL +
-                      "/user/api/v1/refresh-token",
+                      "/user/api/v1/auth/refresh-token",
                     withCredentials: true,
                     method: "POST",
                     data: {
@@ -158,7 +158,7 @@ export const baseQueryWithReauthGraphql: BaseQueryFn = async (
           // Use the proper refresh token request format here
           const refreshResult = await authBaseQuery(
             {
-              url: "/user/api/v1/refresh-token",
+              url: "/user/api/v1/auth/refresh-token",
               method: "GET",
               body: qs.stringify({ refresh_token, access_token }),
               headers: { "Content-Type": HEADER_TYPE_APPLICATION_FORM },
@@ -166,8 +166,6 @@ export const baseQueryWithReauthGraphql: BaseQueryFn = async (
             api,
             extraOptions
           );
-
-          console.log(refreshResult);
 
           if (refreshResult.data) {
             // TODO : Dispatch the updated token information

@@ -109,27 +109,10 @@ const ListBar = () => {
   const { isAuthenticatedError } = useAppSelector(
     (state) => state.persistedReducer.auth
   );
-  const route = useRouter();
-  // * extract the library view status and page from the route
-  const { status, page } = useParams<{
-    status: LibraryRouteStatusType;
-    page: string;
-  }>();
-  const [filter, setFilter] = useState<DeskQueryFilter>();
-
-  // IMPORTANT : define each page have 20 desk
-  const LIMIT = 20;
-  const getUserDesks = useGetUserDesksQuery({
-    filter: { status: DeskStatus.Drafted },
-    limit: LIMIT,
-    skip: (Number(page) - 1) * LIMIT,
-  });
-
-  useEffect(() => {}, [status, page]);
 
   return (
     <>
-      {getUserDesks.data?.getUserDesks?.desks?.map((item, index) => {
+      {libraryList?.map((item, index) => {
         const dateCreated = dayjs(item?.createdAt);
         const dateNow = dayjs();
 

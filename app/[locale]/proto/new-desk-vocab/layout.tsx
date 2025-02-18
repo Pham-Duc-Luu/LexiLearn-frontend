@@ -1,5 +1,5 @@
 import NavBarProtoV1 from "@/components/Navbar.Proto.v1";
-import Header from "./Header";
+import Header from "./_header/Header";
 
 export default function layout({ children }: { children: React.ReactNode }) {
   return (

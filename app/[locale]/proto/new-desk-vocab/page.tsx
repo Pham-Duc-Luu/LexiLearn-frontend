@@ -10,14 +10,14 @@ import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React, { useEffect, useState } from "react";
 import Text from "@tiptap/extension-text";
-import "./Header.css";
+import "./_header/Header.css";
 import {
   ReoderVocabCardItem,
   setCurrentReoderVocabCardItem,
 } from "@/store/Proto-slice/newDesk.slice";
 
 import * as _ from "lodash";
-import EditFlashcard from "./Editflashcard";
+import EditFlashcard from "./_header/Editflashcard";
 const page = () => {
   const { reoderCards, currentReoderCardIndex } = useAppSelector(
     (state) => state.persistedReducer.NewDesk

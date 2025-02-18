@@ -22,6 +22,7 @@ import NewDeskProtoReducer from "./newDesk.slice";
 import LibraryProtoReducer from "./LibraryStore.slice";
 import DeskProtoReducer from "./Desk.proto.slice";
 import AuthProtoReducer from "./Auth.proto.slice";
+
 const rootReducer = combineReducers({
   auth: AuthProtoReducer,
   CardNode: CardNodeProtoReducer,
@@ -47,6 +48,7 @@ export const ProtoStore = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [userGQLApi.reducerPath]: userGQLApi.reducer,
+    [searchPhotoApi.reducerPath]: searchPhotoApi.reducer,
 
     // // apiReducer,
   },
@@ -56,7 +58,12 @@ export const ProtoStore = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(authApi.middleware, userApi.middleware, userGQLApi.middleware),
+    }).concat(
+      authApi.middleware,
+      userApi.middleware,
+      userGQLApi.middleware,
+      searchPhotoApi.middleware
+    ),
 });
 
 // see `setupListeners` docs - takes an optional callback as the 2nd arg for customization
@@ -73,6 +80,7 @@ import { persistReducer } from "redux-persist";
 import { auth } from "@/auth";
 import { authApi } from "@/api/user service/authentication.api";
 import { userApi } from "@/api/user service";
+import { searchPhotoApi } from "@/api/search/search.photo.api";
 
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>();

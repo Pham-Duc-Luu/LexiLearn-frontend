@@ -36,7 +36,7 @@ import {
   updateReoderCarditem,
 } from "@/store/Proto-slice/newDesk.slice";
 import { useAppDispatch } from "@/store/Proto-slice/ProtoStore.slice";
-import { EditFlashcardProps } from "./Editflashcard";
+import { EditFlashcardProps } from "../_header/Editflashcard";
 import Cropper, { Area } from "react-easy-crop";
 import {
   AiOutlineCloudUpload,

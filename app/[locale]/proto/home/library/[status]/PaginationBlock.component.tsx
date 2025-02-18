@@ -1,10 +1,10 @@
 "use client";
 import { useRouter } from "@/i18n/routing";
 import { routeProto } from "@/store/legacy store/route.slice";
-import { Pagination } from "@heroui/react";
+import { Pagination, PaginationProps } from "@heroui/react";
 import React from "react";
 
-const PaginationBlock = () => {
+const PaginationBlock = ({ ...props }: Partial<PaginationProps>) => {
   const route = useRouter();
   return (
     <>
@@ -20,8 +20,9 @@ const PaginationBlock = () => {
           wrapper: "bg-color-4/20",
         }}
         isCompact
-        total={10}
+        total={1}
         variant="light"
+        {...props}
       />
     </>
   );

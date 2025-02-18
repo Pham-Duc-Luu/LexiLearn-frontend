@@ -54,7 +54,7 @@ export interface NewDeskType {
 }
 
 const initialState: NewDeskType = {
-  reoderCards: generateReorderVocabCards(10),
+  reoderCards: [],
   edges: [],
   exampleLimitNumber: 2,
   allNodes: [

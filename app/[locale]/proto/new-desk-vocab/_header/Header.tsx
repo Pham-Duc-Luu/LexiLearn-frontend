@@ -10,7 +10,7 @@ import {
   Textarea,
   useDisclosure,
 } from "@heroui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { IoCaretBack } from "react-icons/io5";
 import { MdArrowBackIos, MdOutlineImage } from "react-icons/md";
 import {
@@ -38,10 +38,16 @@ import DescriptionEditor from "./DescriptionEditor";
 import ImageEditor from "./ImageEditor";
 import { FaList } from "react-icons/fa";
 import ListFlashcardDrawer from "./ListFlashcardDrawer";
+import DropImageModalButton from "@/components/ImageSeachModalButton";
 const Header = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [scrollBehavior, setScrollBehavior] =
     React.useState<ModalProps["scrollBehavior"]>("inside");
+
+  useEffect(() => {
+    onOpen();
+  }, []);
+
   return (
     <div className="grid grid-cols-1 bg-color-4/25n">
       <Navbar maxWidth="full">
@@ -87,7 +93,7 @@ const Header = () => {
                       <div className="editor-container">
                         <TitleEditor />
                         <DescriptionEditor />
-                        <ImageEditor></ImageEditor>
+                        {/* <ImageEditor></ImageEditor> */}
                       </div>
 
                       <Card
@@ -97,9 +103,10 @@ const Header = () => {
                         <CardBody className=" flex justify-between items-center flex-row ">
                           <p>Add to your desk</p>
                           <div>
-                            <Button isIconOnly radius="full" variant="light">
+                            <DropImageModalButton></DropImageModalButton>
+                            {/* <Button isIconOnly radius="full" variant="light">
                               <MdOutlineImage size={20} />
-                            </Button>
+                            </Button> */}
                           </div>
                         </CardBody>
                       </Card>

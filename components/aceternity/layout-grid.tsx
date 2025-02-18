@@ -5,19 +5,13 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 type Card = {
-  id: number | string;
+  id: number;
   content: JSX.Element | React.ReactNode | string;
   className: string;
   thumbnail: string;
 };
 
-export const LayoutGrid = ({
-  cards,
-  className,
-}: {
-  cards: Card[];
-  className: string;
-}) => {
+export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
   const [selected, setSelected] = useState<Card | null>(null);
   const [lastSelected, setLastSelected] = useState<Card | null>(null);
 
@@ -32,19 +26,14 @@ export const LayoutGrid = ({
   };
 
   return (
-    <div
-      className={cn(
-        "w-full h-full p-10 grid grid-cols-1 md:grid-cols-3  max-w-7xl mx-auto gap-4 ",
-        className
-      )}
-    >
+    <div className="w-full h-full p-10 grid grid-cols-1 md:grid-cols-3  max-w-7xl mx-auto gap-4 relative">
       {cards.map((card, i) => (
         <div key={i} className={cn(card.className, "")}>
           <motion.div
             onClick={() => handleClick(card)}
             className={cn(
               card.className,
-              " overflow-hidden",
+              "relative overflow-hidden",
               selected?.id === card.id
                 ? "rounded-lg cursor-pointer absolute inset-0 h-1/2 w-full md:w-1/2 m-auto z-50 flex justify-center items-center flex-wrap flex-col"
                 : lastSelected?.id === card.id
